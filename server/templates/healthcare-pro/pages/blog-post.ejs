@@ -2,8 +2,8 @@
 <%- include('../partials/topbar', { settings, navigation }) %>
 
 <article class="blog-post-detail">
-    <% if (blogPost.featuredImageUrl) { %>
-    <div class="blog-post-hero" style="background-image: url('<%= blogPost.featuredImageUrl %>')"></div>
+    <% if (blogPost.coverImageUrl) { %>
+    <div class="blog-post-hero" style="background-image: url('<%= blogPost.coverImageUrl %>')"></div>
     <% } %>
 
     <div class="blog-post-header">
@@ -18,8 +18,8 @@
             <% if (blogPost.publishedAt) { %>
             <span><%= new Date(blogPost.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
             <% } %>
-            <% if (blogPost.readTimeMinutes) { %>
-            <span><%= blogPost.readTimeMinutes %> min read</span>
+            <% if (blogPost.readTime) { %>
+            <span><%= blogPost.readTime %></span>
             <% } %>
         </div>
     </div>

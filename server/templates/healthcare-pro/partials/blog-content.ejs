@@ -4,8 +4,8 @@
     <!-- Featured Post -->
     <div class="blog-featured">
         <div class="blog-featured-img">
-            <% if (featuredPost.featuredImageUrl) { %>
-            <img src="<%= featuredPost.featuredImageUrl %>" alt="<%= featuredPost.title %>">
+            <% if (featuredPost.coverImageUrl) { %>
+            <img src="<%= featuredPost.coverImageUrl %>" alt="<%= featuredPost.title %>">
             <% } %>
         </div>
         <div class="blog-featured-body">
@@ -17,8 +17,8 @@
                 <% if (featuredPost.publishedAt) { %>
                 <span><%= new Date(featuredPost.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></span>
                 <% } %>
-                <% if (featuredPost.readTimeMinutes) { %>
-                <span><%= featuredPost.readTimeMinutes %> min read</span>
+                <% if (featuredPost.readTime) { %>
+                <span><%= featuredPost.readTime %></span>
                 <% } %>
             </div>
             <a href="/pages/blog/<%= featuredPost.slug %>" class="blog-read-more">Read Article &rarr;</a>
@@ -31,8 +31,8 @@
         <% blogPosts.forEach(function(post) { %>
         <a href="/pages/blog/<%= post.slug %>" class="blog-card">
             <div class="blog-card-img">
-                <% if (post.featuredImageUrl) { %>
-                <img src="<%= post.featuredImageUrl %>" alt="<%= post.title %>">
+                <% if (post.coverImageUrl) { %>
+                <img src="<%= post.coverImageUrl %>" alt="<%= post.title %>">
                 <% } %>
             </div>
             <div class="blog-card-body">
