@@ -110,11 +110,17 @@ export async function loadTenantData(tenantId: string, pageSlug: string, opts: L
     }
 
     case "product": {
-      const product = await prisma.product.findFirst({
-        where: { tenantId, slug: opts.productSlug, isActive: true },
-        include: { category: true },
-      });
-      pageData = { product };
+      const [product, testimonials] = await Promise.all([
+        prisma.product.findFirst({
+          where: { tenantId, slug: opts.productSlug, isActive: true },
+          include: { category: true },
+        }),
+        prisma.testimonial.findMany({
+          where: { tenantId, isVisible: true },
+          orderBy: { sortOrder: "asc" },
+        }),
+      ]);
+      pageData = { product, testimonials };
       break;
     }
 

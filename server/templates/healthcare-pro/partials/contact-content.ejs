@@ -1,56 +1,68 @@
-<!-- Contact — Content Section -->
+<!-- Contact — Form & Info Section -->
 <section class="contact-section">
-    <div class="contact-form-wrapper">
-        <h2>Get in Touch</h2>
-        <p>Have questions or want to learn more? Send us a message and we'll get back to you.</p>
-        <form class="contact-form" data-action="/api/public/contact">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="contact-name">Full Name</label>
-                    <input type="text" id="contact-name" name="name" required>
+    <div class="contact-form-wrap">
+        <h2>Send Us a Message</h2>
+        <p>Fill in the form below and our team will get back to you within 24 hours.</p>
+        <form class="contact-form" id="contactForm" novalidate>
+            <div class="contact-row">
+                <div class="contact-field">
+                    <label for="contactFirst">First Name</label>
+                    <input type="text" id="contactFirst" name="firstName" placeholder="John" required>
                 </div>
-                <div class="form-group">
-                    <label for="contact-email">Email</label>
-                    <input type="email" id="contact-email" name="email" required>
+                <div class="contact-field">
+                    <label for="contactLast">Last Name</label>
+                    <input type="text" id="contactLast" name="lastName" placeholder="Doe" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="contact-subject">Subject</label>
-                <input type="text" id="contact-subject" name="subject">
+            <div class="contact-field">
+                <label for="contactEmail">Email Address</label>
+                <input type="email" id="contactEmail" name="email" placeholder="john@example.com" required>
             </div>
-            <div class="form-group">
-                <label for="contact-message">Message</label>
-                <textarea id="contact-message" name="message" rows="5" required></textarea>
+            <div class="contact-field">
+                <label for="contactSubject">Subject</label>
+                <select id="contactSubject" name="subject" required>
+                    <option value="" disabled selected>Select a topic</option>
+                    <option value="general">General Enquiry</option>
+                    <option value="treatment">Treatment Question</option>
+                    <option value="order">Order Issue</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="other">Other</option>
+                </select>
             </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div class="contact-field">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" name="message" rows="5" placeholder="How can we help?" required></textarea>
+            </div>
+            <button type="submit" class="contact-submit">Send Message</button>
         </form>
     </div>
 
-    <div class="contact-info">
-        <% if (settings) { %>
-        <div class="contact-cards">
-            <% if (settings.contactEmail) { %>
-            <div class="contact-card">
-                <span class="contact-card-icon">✉</span>
-                <h4>Email</h4>
-                <p><a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a></p>
-            </div>
-            <% } %>
-            <% if (settings.contactPhone) { %>
-            <div class="contact-card">
-                <span class="contact-card-icon">☎</span>
-                <h4>Phone</h4>
-                <p><a href="tel:<%= settings.contactPhone %>"><%= settings.contactPhone %></a></p>
-            </div>
-            <% } %>
-            <% if (settings.contactAddress) { %>
-            <div class="contact-card">
-                <span class="contact-card-icon">📍</span>
-                <h4>Address</h4>
-                <p><%= settings.contactAddress %></p>
-            </div>
-            <% } %>
+    <aside class="contact-info">
+        <div class="contact-info-card">
+            <h3>Email</h3>
+            <p><%= (settings && settings.contactEmail) || 'hello@ethicallife.co.uk' %></p>
         </div>
-        <% } %>
-    </div>
+        <div class="contact-info-card">
+            <h3>Phone</h3>
+            <p><%= (settings && settings.contactPhone) || '0800 123 4567' %></p>
+        </div>
+        <div class="contact-info-card">
+            <h3>Hours</h3>
+            <p>Mon&ndash;Fri: 9am &ndash; 6pm<br>Sat: 10am &ndash; 2pm</p>
+        </div>
+        <div class="contact-info-card">
+            <h3>Follow Us</h3>
+            <div class="contact-socials">
+                <% if (socialLinks && socialLinks.length > 0) { %>
+                    <% socialLinks.forEach(function(link) { %>
+                    <a href="<%= link.url %>" aria-label="<%= link.platform %>" target="_blank" rel="noopener noreferrer"><img src="<%= link.iconUrl || '/assets/images/' + link.platform.toLowerCase() + '.svg' %>" alt="<%= link.platform %>"></a>
+                    <% }); %>
+                <% } else { %>
+                    <a href="#" aria-label="Instagram"><img src="/assets/images/insta.svg" alt="Instagram"></a>
+                    <a href="#" aria-label="TikTok"><img src="/assets/images/tiktok.svg" alt="TikTok"></a>
+                    <a href="#" aria-label="Facebook"><img src="/assets/images/facebook.svg" alt="Facebook"></a>
+                <% } %>
+            </div>
+        </div>
+    </aside>
 </section>

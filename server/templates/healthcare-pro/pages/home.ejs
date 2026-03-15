@@ -30,7 +30,12 @@
 <% } %>
 
 <% if (homeFaqs && homeFaqs.length > 0) { %>
-<%- include('../partials/faq-accordion', { faqs: homeFaqs }) %>
+<%- include('../partials/faq-accordion', {
+    faqs: homeFaqs,
+    faqHeadline: (sections && sections.faq && sections.faq.content.headline) || 'Ease in with <br> compounded GLP-1 <br> microdose treatment plans',
+    faqDescription: (sections && sections.faq && sections.faq.content.description) || 'Sugar is no longer an occasional indulgence. In today\u2019s food environment, it appears constantly, not only as added sugar, but through refined grains and fast-absorbing carbohydrates. While sugar provides energy, repeated exposure changes how the body responds to it. What once worked smoothly now places continuous pressure on metabolic and hormonal systems.',
+    faqDescriptionSecond: (sections && sections.faq && sections.faq.content.descriptionSecond) || 'Over time, frequent sugar intake affects more than blood sugar alone. It influences appetite regulation, energy stability, mood, and long-term metabolic health. Many people experience this as energy dips after meals, persistent cravings, disrupted sleep, or weight gain, even when their eating habits have not significantly changed. Understanding how sugar works inside the body helps explain why these patterns develop and why long-term change requires more than willpower.'
+}) %>
 <% } %>
 
 <% if (testimonials && testimonials.length > 0) { %>

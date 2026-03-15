@@ -7,11 +7,14 @@
         <% if (locals.faqDescription) { %>
         <p class="faq-desc"><%- faqDescription %></p>
         <% } %>
+        <% if (locals.faqDescriptionSecond) { %>
+        <p class="faq-desc faq-desc-second"><%- faqDescriptionSecond %></p>
+        <% } %>
 
         <div class="faq-list" role="list">
             <% faqs.forEach(function(faq) { %>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">
+                <button class="faq-question">
                     <span><%= faq.question %></span>
                     <span class="faq-icon">+</span>
                 </button>
@@ -23,5 +26,9 @@
         </div>
 
         <p class="faq-disclaimer">*Disclaimer: This information is for educational and informational purposes only. It is not intended to be a substitute for professional medical advice.</p>
+    </div>
+
+    <div class="faq-right">
+        <img src="/assets/images/doctor.png" alt="Doctor" class="faq-doctor-img">
     </div>
 </section>

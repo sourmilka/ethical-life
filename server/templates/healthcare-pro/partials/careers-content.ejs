@@ -1,56 +1,61 @@
-<!-- Careers — Content Section -->
-<section class="careers-section">
-    <div class="careers-intro">
-        <h2>Join Our Team</h2>
-        <p>We're always looking for passionate people who want to make a difference in healthcare.</p>
-    </div>
+<!-- Careers — Page Content -->
+<section class="careers-intro">
+    <h2>Join Our Team</h2>
+    <p>We&rsquo;re building the future of accessible healthcare &mdash; and we&rsquo;d love for you to be part of it. Explore open roles below and help us make a real difference in people&rsquo;s lives.</p>
+</section>
 
-    <% if (careers && careers.length > 0) { %>
+<section class="careers-openings">
     <div class="careers-grid">
-        <% careers.forEach(function(job) { %>
-        <div class="career-card">
-            <div class="career-card-header">
+        <% if (careers && careers.length > 0) { %>
+            <% careers.forEach(function(job) { %>
+            <div class="careers-card">
+                <% if (job.department) { %>
+                <span class="careers-card-tag"><%= job.department %></span>
+                <% } %>
                 <h3><%= job.title %></h3>
-                <div class="career-tags">
-                    <% if (job.location) { %>
-                    <span class="career-tag"><%= job.location %></span>
-                    <% } %>
-                    <% if (job.type) { %>
-                    <span class="career-tag"><%= job.type %></span>
-                    <% } %>
-                    <% if (job.department) { %>
-                    <span class="career-tag"><%= job.department %></span>
-                    <% } %>
+                <div class="careers-card-meta">
+                    <% if (job.location) { %><span><%= job.location %></span><% } %>
+                    <% if (job.type) { %><span><%= job.type %></span><% } %>
                 </div>
+                <p><%= job.description %></p>
+                <a href="<%= job.applyUrl || 'mailto:careers@ethicallife.co.uk?subject=Application%3A%20' + encodeURIComponent(job.title) %>" class="careers-card-link">Apply Now &rarr;</a>
             </div>
-            <p class="career-desc"><%= job.description %></p>
-            <% if (job.applyUrl) { %>
-            <a href="<%= job.applyUrl %>" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Apply Now</a>
-            <% } %>
-        </div>
-        <% }); %>
+            <% }); %>
+        <% } else { %>
+            <p>No open positions right now. Check back soon!</p>
+        <% } %>
     </div>
-    <% } else { %>
-    <div class="careers-empty">
-        <p>No open positions right now. Check back soon!</p>
-    </div>
-    <% } %>
+</section>
 
-    <!-- Perks -->
-    <% if (sections && sections.perks && sections.perks.content.items) { %>
-    <div class="careers-perks">
-        <h2><%= sections.perks.content.headline || 'Why Work With Us' %></h2>
-        <div class="perks-grid">
+<section class="careers-perks">
+    <h2>Why Work With Us</h2>
+    <div class="perks-grid">
+        <% if (sections && sections.perks && sections.perks.content.items) { %>
             <% sections.perks.content.items.forEach(function(perk) { %>
-            <div class="perk-card">
+            <div class="perk-item">
                 <% if (perk.icon) { %>
                 <span class="perk-icon"><%- perk.icon %></span>
                 <% } %>
-                <h4><%= perk.title %></h4>
+                <h3><%= perk.title %></h3>
                 <p><%= perk.description %></p>
             </div>
             <% }); %>
-        </div>
+        <% } else { %>
+            <div class="perk-item">
+                <span class="perk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                <h3>Remote-First</h3>
+                <p>Work from anywhere in the UK with flexible hours that fit your life.</p>
+            </div>
+            <div class="perk-item">
+                <span class="perk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+                <h3>Meaningful Work</h3>
+                <p>Help real people access better healthcare every single day.</p>
+            </div>
+            <div class="perk-item">
+                <span class="perk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+                <h3>Growth &amp; Development</h3>
+                <p>Annual learning budget, mentorship, and clear career progression.</p>
+            </div>
+        <% } %>
     </div>
-    <% } %>
 </section>

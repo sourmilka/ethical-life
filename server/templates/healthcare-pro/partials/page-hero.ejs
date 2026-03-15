@@ -1,9 +1,12 @@
 <!-- Page Hero (used on inner pages) -->
 <section class="page-hero">
-    <div class="page-hero-content">
-        <h1 class="page-hero-title"><%= locals.pageHeroTitle || (page && page.title) || '' %></h1>
+    <div class="page-hero-inner">
+        <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a> <span>/</span> <span><%= locals.pageHeroTitle || (page && page.title) || '' %></span>
+        </nav>
+        <h1><%= locals.pageHeroTitle || (page && page.title) || '' %></h1>
         <% if (locals.pageHeroDesc || (page && page.metaDescription)) { %>
-        <p class="page-hero-desc"><%= locals.pageHeroDesc || page.metaDescription %></p>
+        <p><%= locals.pageHeroDesc || page.metaDescription %></p>
         <% } %>
     </div>
 </section>

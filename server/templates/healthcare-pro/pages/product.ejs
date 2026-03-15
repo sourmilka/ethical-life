@@ -1,29 +1,75 @@
 <%- include('../layouts/head', { settings, pageTitle: locals.pageTitle, pageDescription: locals.pageDescription, pageScript: locals.pageScript }) %>
 <%- include('../partials/topbar', { settings, navigation }) %>
 
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a> <span>/</span> <a href="/pages/shop.html">Shop</a> <span>/</span> <span><%= product.title %></span>
+        </nav>
+        <h1><%= product.title %></h1>
+        <p>Clinician-formulated treatment designed for real results.</p>
+    </div>
+</section>
+
+<!-- Product Detail -->
 <section class="product-detail">
-    <div class="product-detail-gallery">
+    <div class="product-detail-left">
         <% if (product.imageUrl) { %>
         <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="product-detail-img">
         <% } %>
     </div>
 
-    <div class="product-detail-info">
+    <div class="product-detail-right">
         <% if (product.category) { %>
-        <span class="product-detail-category"><%= product.category.name %></span>
+        <span class="product-detail-tag"><%= product.category.name %></span>
         <% } %>
-        <h1 class="product-detail-title"><%= product.title %></h1>
+        <h2><%= product.title %></h2>
         <p class="product-detail-price"><%= product.priceText || '' %></p>
-        <div class="product-detail-desc">
-            <%- product.longDescription || product.description || '' %>
+        <p class="product-detail-desc"><%- product.description || '' %></p>
+
+        <% if (product.features && product.features.length > 0) { %>
+        <div class="product-detail-features">
+            <h3>Key Benefits</h3>
+            <ul>
+                <% product.features.forEach(function(f) { %>
+                <li><%= f %></li>
+                <% }); %>
+            </ul>
         </div>
-        <% if (product.ctaUrl || product.slug) { %>
-        <a href="<%= product.ctaUrl || '/pages/forms.html?product=' + product.slug %>" class="btn btn-primary">
-            <%= product.ctaText || 'Get Started' %>
-        </a>
+        <% } else { %>
+        <div class="product-detail-features">
+            <h3>Key Benefits</h3>
+            <ul>
+                <li>Clinically proven weight management</li>
+                <li>Prescribed by licensed clinicians</li>
+                <li>Delivered discreetly to your door</li>
+                <li>Ongoing medical support included</li>
+            </ul>
+        </div>
         <% } %>
+
+        <% if (product.howItWorks || product.longDescription) { %>
+        <div class="product-detail-info">
+            <h3>How It Works</h3>
+            <p><%- product.howItWorks || product.longDescription %></p>
+        </div>
+        <% } else { %>
+        <div class="product-detail-info">
+            <h3>How It Works</h3>
+            <p>Our medical team will review your health profile, prescribe the right treatment for you, and have it delivered to your door. Ongoing support is included throughout your journey.</p>
+        </div>
+        <% } %>
+
+        <a href="<%= product.ctaUrl || '/pages/forms.html?product=' + product.slug %>" class="product-detail-btn">
+            <%= product.ctaText || 'Get Started' %> <img src="/assets/images/arrow.svg" alt="arrow" class="product-detail-arrow">
+        </a>
     </div>
 </section>
+
+<% if (typeof testimonials !== 'undefined' && testimonials && testimonials.length > 0) { %>
+<%- include('../partials/stories', { testimonials }) %>
+<% } %>
 
 <%- include('../partials/footer', { settings, navigation, socialLinks }) %>
 <%- include('../layouts/foot', { pageScript: locals.pageScript }) %>

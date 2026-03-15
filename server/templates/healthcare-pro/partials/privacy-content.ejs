@@ -1,10 +1,81 @@
-<!-- Privacy Policy — Content -->
-<section class="legal-section">
-    <div class="legal-content">
-        <% if (settings && settings.privacyContent) { %>
-        <%- settings.privacyContent %>
-        <% } else { %>
-        <p>Privacy policy content has not been configured yet.</p>
-        <% } %>
-    </div>
+<!-- Privacy Policy Content -->
+<section class="content-section">
+    <% if (settings && settings.privacyContent) { %>
+    <%- settings.privacyContent %>
+    <% } else { %>
+    <p class="last-updated">Last updated: 1 January 2025</p>
+
+    <h2>1. Introduction</h2>
+    <p>Ethical Life Ltd (&ldquo;we,&rdquo; &ldquo;our,&rdquo; &ldquo;us&rdquo;) is committed to protecting your personal data. This Privacy Policy explains how we collect, use, store, and share your information when you use our website, app, and services.</p>
+
+    <h2>2. Information We Collect</h2>
+    <h3>Personal Information</h3>
+    <ul>
+        <li>Full name, date of birth, and contact details (email, phone, address)</li>
+        <li>Medical history and health information submitted via our intake forms</li>
+        <li>Payment and billing information</li>
+        <li>Account credentials</li>
+    </ul>
+    <h3>Automatically Collected Data</h3>
+    <ul>
+        <li>IP address, browser type, and device information</li>
+        <li>Pages visited, time spent, and interactions on our platform</li>
+        <li>Cookies and similar tracking technologies (see Section 7)</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use your data to:</p>
+    <ul>
+        <li>Provide telehealth consultations and prescription services</li>
+        <li>Process orders, payments, and deliveries</li>
+        <li>Communicate with you about your treatment and account</li>
+        <li>Improve our platform, products, and services</li>
+        <li>Comply with legal and regulatory obligations</li>
+    </ul>
+
+    <h2>4. Legal Basis for Processing</h2>
+    <p>Under the UK General Data Protection Regulation (UK GDPR), we process your data on the following legal bases:</p>
+    <ul>
+        <li><strong>Consent:</strong> For marketing communications and non-essential cookies</li>
+        <li><strong>Contractual necessity:</strong> To fulfil our services to you</li>
+        <li><strong>Legal obligation:</strong> To comply with healthcare and regulatory requirements</li>
+        <li><strong>Legitimate interests:</strong> To improve our services and protect against fraud</li>
+    </ul>
+
+    <h2>5. Data Sharing</h2>
+    <p>We do not sell your personal data. We may share information with:</p>
+    <ul>
+        <li>Licensed clinicians and pharmacies involved in your care</li>
+        <li>Secure payment processors</li>
+        <li>Delivery partners (limited to shipping details)</li>
+        <li>Regulatory authorities when required by law</li>
+    </ul>
+
+    <h2>6. Data Retention</h2>
+    <p>We retain your personal data for as long as necessary to provide our services and comply with legal obligations. Medical records are retained for a minimum period as required by healthcare regulations. You may request deletion of your account data at any time, subject to legal retention requirements.</p>
+
+    <h2>7. Cookies</h2>
+    <p>We use essential cookies to operate our platform and optional analytics cookies to understand how users interact with our services. You can manage your cookie preferences through your browser settings or our cookie consent tool.</p>
+
+    <h2>8. Your Rights</h2>
+    <p>Under UK GDPR, you have the right to:</p>
+    <ul>
+        <li>Access the personal data we hold about you</li>
+        <li>Rectify inaccurate or incomplete data</li>
+        <li>Request erasure of your data (&ldquo;right to be forgotten&rdquo;)</li>
+        <li>Restrict or object to processing</li>
+        <li>Data portability</li>
+        <li>Withdraw consent at any time</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:privacy@ethicallife.co.uk">privacy@ethicallife.co.uk</a>.</p>
+
+    <h2>9. Security</h2>
+    <p>We implement industry-standard technical and organisational measures to protect your data, including encryption in transit and at rest, access controls, and regular security audits.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will notify you of significant changes via email or a notice on our platform. Continued use of our services constitutes acceptance of the updated policy.</p>
+
+    <h2>11. Contact</h2>
+    <p>For privacy-related queries, contact our Data Protection Officer at <a href="mailto:privacy@ethicallife.co.uk">privacy@ethicallife.co.uk</a> or visit our <a href="/pages/contact.html">Contact page</a>.</p>
+    <% } %>
 </section>

@@ -12,19 +12,6 @@
     <link rel="icon" href="<%= settings.faviconUrl %>">
     <% } %>
 
-    <!-- Dynamic CSS variables from tenant branding -->
-    <style>
-        :root {
-            --color-black: <%= (settings && settings.colorPrimary) || '#0D0D0D' %>;
-            --color-accent: <%= (settings && settings.colorAccent) || '#FFCD93' %>;
-            --color-secondary: <%= (settings && settings.colorSecondary) || '#FF967A' %>;
-            --color-bg: <%= (settings && settings.colorBackground) || '#E6E6E6' %>;
-            --color-border: <%= (settings && settings.colorBorder) || '#D9D9D9' %>;
-            --color-border-light: <%= (settings && settings.colorBorderLight) || '#EBEBEB' %>;
-            --color-white: <%= (settings && settings.colorWhite) || '#fff' %>;
-        }
-    </style>
-
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/styles/pages/<%= locals.pageScript || 'home' %>.css">
 
