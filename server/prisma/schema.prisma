@@ -243,6 +243,7 @@ model NavigationItem {
   sortOrder   Int     @default(0) @map("sort_order")
   isVisible   Boolean @default(true) @map("is_visible")
   openInNewTab Boolean @default(false) @map("open_in_new_tab")
+  cssClass    String?  @map("css_class") @db.VarChar(100)
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
 
@@ -395,6 +396,7 @@ model Testimonial {
   reviewText   String   @map("review_text") @db.Text
   reviewDate   DateTime? @map("review_date") @db.Date
   source       String?  @db.VarChar(50)
+  sourceIcon   String?  @map("source_icon") @db.Text
   isVisible    Boolean  @default(true) @map("is_visible")
   sortOrder    Int      @default(0) @map("sort_order")
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz

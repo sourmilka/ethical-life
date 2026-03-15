@@ -62,6 +62,7 @@ export async function loadTenantData(tenantId: string, pageSlug: string, opts: L
         }),
         prisma.product.findMany({
           where: { tenantId, isActive: true, isFeatured: true },
+          include: { category: true },
           orderBy: { sortOrder: "asc" },
         }),
         prisma.video.findMany({
@@ -83,7 +84,11 @@ export async function loadTenantData(tenantId: string, pageSlug: string, opts: L
         featuredProducts,
         videos,
         homeFaqs,
-        testimonials,
+        testimonials: testimonials.map((t) => ({
+          ...t,
+          content: t.reviewText,
+          avatarUrl: t.authorAvatar,
+        })),
       };
       break;
     }
