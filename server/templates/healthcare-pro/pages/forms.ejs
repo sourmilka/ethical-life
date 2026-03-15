@@ -1,4 +1,6 @@
+<%- include('../layouts/head', { settings, pageTitle: locals.pageTitle, pageDescription: locals.pageDescription, pageScript: locals.pageScript }) %>
 <div class="form-page">
     <%- include('../partials/form-left', { settings, formDef }) %>
     <%- include('../partials/form-card', { formDef }) %>
 </div>
+<%- include('../layouts/foot', { pageScript: locals.pageScript }) %>

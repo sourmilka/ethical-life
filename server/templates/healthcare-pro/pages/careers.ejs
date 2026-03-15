@@ -1,4 +1,6 @@
+<%- include('../layouts/head', { settings, pageTitle: locals.pageTitle, pageDescription: locals.pageDescription, pageScript: locals.pageScript }) %>
 <%- include('../partials/topbar', { settings, navigation }) %>
 <%- include('../partials/page-hero', { page, pageHeroTitle: 'Careers', pageHeroDesc: 'Join our growing team.' }) %>
 <%- include('../partials/careers-content', { careers: locals.jobListings || [], sections: locals.sections || {} }) %>
 <%- include('../partials/footer', { settings, navigation, socialLinks }) %>
+<%- include('../layouts/foot', { pageScript: locals.pageScript }) %>

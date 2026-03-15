@@ -1,3 +1,4 @@
+<%- include('../layouts/head', { settings, pageTitle: locals.pageTitle, pageDescription: locals.pageDescription, pageScript: locals.pageScript }) %>
 <%- include('../partials/topbar', { settings, navigation }) %>
 
 <% if (sections && sections.hero) { %>
@@ -41,3 +42,4 @@
 <% } %>
 
 <%- include('../partials/footer', { settings, navigation, socialLinks }) %>
+<%- include('../layouts/foot', { pageScript: locals.pageScript }) %>

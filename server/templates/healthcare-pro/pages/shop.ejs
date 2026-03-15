@@ -1,4 +1,6 @@
+<%- include('../layouts/head', { settings, pageTitle: locals.pageTitle, pageDescription: locals.pageDescription, pageScript: locals.pageScript }) %>
 <%- include('../partials/topbar', { settings, navigation }) %>
 <%- include('../partials/page-hero', { page, pageHeroTitle: 'Shop', pageHeroDesc: 'Browse our product catalog.' }) %>
 <%- include('../partials/shop-grid', { products, categories, settings }) %>
 <%- include('../partials/footer', { settings, navigation, socialLinks }) %>
+<%- include('../layouts/foot', { pageScript: locals.pageScript }) %>
