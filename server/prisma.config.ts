@@ -12,7 +12,7 @@ try {
     const eqIdx = trimmed.indexOf("=");
     if (eqIdx === -1) continue;
     const key = trimmed.slice(0, eqIdx).trim();
-    const value = trimmed.slice(eqIdx + 1).trim();
+    const value = trimmed.slice(eqIdx + 1).trim().replace(/\r$/, "");
     if (!process.env[key]) {
       process.env[key] = value;
     }
@@ -25,6 +25,13 @@ export default defineConfig({
   earlyAccess: true,
   schema: path.join(__dirname, "prisma", "schema.prisma"),
   migrate: {
+    async url() {
+      const url = process.env.DATABASE_URL;
+      if (!url) throw new Error("DATABASE_URL is not set");
+      return url;
+    },
+  },
+  datasource: {
     async url() {
       const url = process.env.DATABASE_URL;
       if (!url) throw new Error("DATABASE_URL is not set");

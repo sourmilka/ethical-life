@@ -1,37 +1,17 @@
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
 import { env } from "../config/env.js";
 import { logger } from "../config/logger.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const useS3 = !!(
-  env.S3_BUCKET &&
-  env.S3_ENDPOINT &&
-  env.S3_ACCESS_KEY &&
-  env.S3_SECRET_KEY
-);
+const BUCKET = "media";
+const useSupabase = !!(env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY);
 
-let s3: S3Client | null = null;
-
-if (useS3) {
-  s3 = new S3Client({
-    region: env.S3_REGION || "auto",
-    endpoint: env.S3_ENDPOINT!,
-    credentials: {
-      accessKeyId: env.S3_ACCESS_KEY!,
-      secretAccessKey: env.S3_SECRET_KEY!,
-    },
-    forcePathStyle: true,
-  });
-  logger.info("S3 storage configured");
+if (useSupabase) {
+  logger.info("Supabase Storage configured");
 }
 
 /**
- * Upload a file to S3 (production) or local disk (dev fallback).
+ * Upload a file to Supabase Storage (production) or local disk (dev fallback).
  * Returns the public URL of the uploaded file.
  */
 export async function uploadFile(
@@ -39,20 +19,24 @@ export async function uploadFile(
   buffer: Buffer,
   contentType: string,
 ): Promise<string> {
-  if (s3 && useS3) {
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: env.S3_BUCKET!,
-        Key: key,
-        Body: buffer,
-        ContentType: contentType,
-      }),
+  if (useSupabase) {
+    const res = await fetch(
+      `${env.SUPABASE_URL}/storage/v1/object/${BUCKET}/${key}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+          "Content-Type": contentType,
+          "x-upsert": "true",
+        },
+        body: buffer,
+      },
     );
-    // Construct public URL — Supabase Storage format
-    const publicUrl = env.S3_PUBLIC_URL
-      ? `${env.S3_PUBLIC_URL}/${key}`
-      : `${env.S3_ENDPOINT}/${env.S3_BUCKET}/${key}`;
-    return publicUrl;
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Supabase upload failed (${res.status}): ${text}`);
+    }
+    return `${env.SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${key}`;
   }
 
   // Local disk fallback for development
@@ -63,19 +47,22 @@ export async function uploadFile(
 }
 
 /**
- * Delete a file from S3 or local disk.
+ * Delete a file from Supabase Storage or local disk.
  */
 export async function deleteFile(key: string): Promise<void> {
-  if (s3 && useS3) {
+  if (useSupabase) {
     try {
-      await s3.send(
-        new DeleteObjectCommand({
-          Bucket: env.S3_BUCKET!,
-          Key: key,
-        }),
+      await fetch(
+        `${env.SUPABASE_URL}/storage/v1/object/${BUCKET}/${key}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+          },
+        },
       );
     } catch (err) {
-      logger.warn({ err, key }, "Failed to delete file from S3");
+      logger.warn({ err, key }, "Failed to delete file from Supabase Storage");
     }
     return;
   }
@@ -88,15 +75,16 @@ export async function deleteFile(key: string): Promise<void> {
   }
 }
 
+const PUBLIC_PREFIX = "/storage/v1/object/public/media/";
+
 /**
  * Extract the storage key from a URL (reverse of uploadFile).
  */
 export function urlToKey(url: string): string {
-  // If it's an S3 URL, extract the key after the bucket name
-  if (env.S3_PUBLIC_URL && url.startsWith(env.S3_PUBLIC_URL)) {
-    return url.slice(env.S3_PUBLIC_URL.length + 1);
+  const idx = url.indexOf(PUBLIC_PREFIX);
+  if (idx !== -1) {
+    return url.slice(idx + PUBLIC_PREFIX.length);
   }
-  // Local URL like /uploads/tenantId/filename.ext
   if (url.startsWith("/uploads/")) {
     return url.slice("/uploads/".length);
   }

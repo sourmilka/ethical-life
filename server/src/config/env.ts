@@ -19,13 +19,9 @@ const envSchema = z.object({
   // CORS
   CORS_ORIGIN: z.string().default("http://localhost:5173"),
 
-  // File storage (S3/R2) — optional in dev
-  S3_BUCKET: z.string().optional(),
-  S3_REGION: z.string().optional(),
-  S3_ACCESS_KEY: z.string().optional(),
-  S3_SECRET_KEY: z.string().optional(),
-  S3_ENDPOINT: z.string().optional(),
-  S3_PUBLIC_URL: z.string().optional(),
+  // Supabase Storage — optional in dev (falls back to local disk)
+  SUPABASE_URL: z.string().optional(),
+  SUPABASE_SERVICE_KEY: z.string().optional(),
 
   // Platform
   PLATFORM_DOMAIN: z.string().default("localhost"),
