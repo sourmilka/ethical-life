@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { PageHeader, DataTable, StatusBadge, ConfirmDialog, type Column } from '@/components/ui';
 import { useState } from 'react';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Pencil } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface Job {
@@ -89,15 +89,26 @@ export function CareersPage() {
             key: '_actions',
             header: '',
             render: (row) => (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDeleteTarget(row);
-                }}
-                className="text-gray-400 hover:text-red-600"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/dashboard/content/careers/${row.id}`);
+                  }}
+                  className="text-gray-400 hover:text-blue-600"
+                >
+                  <Pencil className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDeleteTarget(row);
+                  }}
+                  className="text-gray-400 hover:text-red-600"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
             ),
           },
         ]}

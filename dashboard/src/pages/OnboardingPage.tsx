@@ -171,7 +171,7 @@ export function OnboardingPage() {
           {step === 0 && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Welcome to BarterPay!</h2>
+                <h2 className="text-2xl font-bold text-gray-900">Welcome!</h2>
                 <p className="mt-1 text-gray-500">Let's set up your website. What's your business called?</p>
               </div>
               <div className="space-y-4">

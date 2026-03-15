@@ -7,7 +7,7 @@ interface Page {
   id: string;
   title: string;
   slug: string;
-  status: string;
+  isActive: boolean;
   updatedAt: string;
   _count?: { sections: number };
   [key: string]: unknown;
@@ -22,12 +22,12 @@ const columns: Column<Page>[] = [
     render: (row) => (row._count?.sections ?? 0).toString(),
   },
   {
-    key: 'status',
+    key: 'isActive',
     header: 'Status',
     render: (row) => (
       <StatusBadge
-        label={row.status}
-        variant={row.status === 'active' ? 'success' : 'default'}
+        label={row.isActive ? 'Active' : 'Inactive'}
+        variant={row.isActive ? 'success' : 'default'}
       />
     ),
   },

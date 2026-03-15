@@ -82,7 +82,7 @@ export function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-          <p className="mt-2 text-sm text-gray-500">Set up your BarterPay dashboard</p>
+          <p className="mt-2 text-sm text-gray-500">Set up your dashboard</p>
         </div>
 
         <form
@@ -124,7 +124,7 @@ export function RegisterPage() {
               title="Only lowercase letters, numbers, and hyphens"
             />
             <p className="mt-1 text-xs text-gray-400">
-              yoursite.barterpay.com/{form.slug || 'your-slug'}
+              yoursite.app/{form.slug || 'your-slug'}
             </p>
           </div>
 

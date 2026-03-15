@@ -77,8 +77,7 @@ const navItems: NavItem[] = [
     to: '/dashboard/settings',
     icon: Settings,
     children: [
-      { label: 'Branding', to: '/dashboard/settings/branding', icon: Palette },
-      { label: 'Users', to: '/dashboard/settings/users', icon: Users },
+      { label: 'Account', to: '/dashboard/settings/users', icon: Users },
       { label: 'Payment', to: '/dashboard/settings/payment', icon: CreditCard },
       { label: 'Legal', to: '/dashboard/settings/legal', icon: Scale },
     ],
@@ -125,7 +124,7 @@ export function DashboardLayout() {
       >
         {/* Logo */}
         <div className="flex h-16 items-center justify-between border-b border-gray-200 px-4">
-          <span className="text-lg font-bold text-gray-900">BarterPay</span>
+          <span className="text-lg font-bold text-gray-900">{user?.tenant.name || 'Dashboard'}</span>
           <button
             className="lg:hidden p-1 text-gray-500 hover:text-gray-700"
             onClick={() => setSidebarOpen(false)}

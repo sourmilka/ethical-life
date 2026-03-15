@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
-import { api } from '@/lib/api';
+import { api, assetUrl } from '@/lib/api';
 import { PageHeader, DataTable, StatusBadge, ConfirmDialog, type Column } from '@/components/ui';
 import { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
@@ -25,7 +25,7 @@ const columns: Column<Product>[] = [
     header: 'Image',
     render: (row) =>
       row.imageUrl ? (
-        <img src={row.imageUrl} alt="" className="h-10 w-10 rounded object-cover" />
+        <img src={assetUrl(row.imageUrl)} alt="" className="h-10 w-10 rounded object-cover" />
       ) : (
         <div className="h-10 w-10 rounded bg-gray-100" />
       ),

@@ -1,6 +1,7 @@
 import { useState, useCallback, type ReactNode } from 'react';
 import { ChevronDown, Eye, EyeOff, Save } from 'lucide-react';
 import { clsx } from 'clsx';
+import { assetUrl } from '@/lib/api';
 
 interface SectionEditorProps {
   title: string;
@@ -150,7 +151,7 @@ export function ImageField({ label, value, onChange, onPickImage }: ImageFieldPr
     <Field label={label}>
       <div className="flex items-center gap-2">
         {value && (
-          <img src={value} alt="" className="h-10 w-10 rounded border border-gray-200 object-cover" />
+          <img src={assetUrl(value)} alt="" className="h-10 w-10 rounded border border-gray-200 object-cover" />
         )}
         <input
           type="text"

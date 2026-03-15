@@ -1,5 +1,15 @@
 const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
+/** Server origin for resolving relative asset paths like /assets/images/... */
+const SERVER_ORIGIN = BASE_URL.replace(/\/api\/?$/, '');
+
+/** Resolve a relative asset path to a full URL on the server */
+export function assetUrl(path: string | null | undefined): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
+  return `${SERVER_ORIGIN}${path.startsWith('/') ? '' : '/'}${path}`;
+}
+
 let accessToken: string | null = null;
 
 export function setAccessToken(token: string | null) {

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { api } from '@/lib/api';
+import { api, assetUrl } from '@/lib/api';
 import { PageHeader, ConfirmDialog, TextField, ImageField } from '@/components/ui';
 import { Plus, Trash2, Pencil, Eye, EyeOff } from 'lucide-react';
 
@@ -79,7 +79,7 @@ export function TeamPage() {
         {members.map((m) => (
           <div key={m.id} className="rounded-lg border border-gray-200 bg-white p-4 text-center">
             {m.photoUrl ? (
-              <img src={m.photoUrl} alt="" className="mx-auto h-20 w-20 rounded-full object-cover" />
+              <img src={assetUrl(m.photoUrl)} alt="" className="mx-auto h-20 w-20 rounded-full object-cover" />
             ) : (
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 text-xl font-medium text-gray-400">
                 {m.fullName.charAt(0)}

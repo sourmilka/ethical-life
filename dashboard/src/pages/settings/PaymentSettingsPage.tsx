@@ -13,7 +13,7 @@ interface Tenant {
   customDomain?: string;
   plan: string;
   status: string;
-  barterpayMerchantId?: string;
+  merchantId?: string;
   createdAt: string;
 }
 
@@ -30,7 +30,7 @@ export function PaymentSettingsPage() {
 
   useEffect(() => {
     if (tenant && !loaded) {
-      setMerchantId(tenant.barterpayMerchantId ?? '');
+      setMerchantId(tenant.merchantId ?? '');
       setLoaded(true);
     }
   }, [tenant, loaded]);
@@ -51,7 +51,7 @@ export function PaymentSettingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Payment Settings" description="BarterPay payment integration"
+      <PageHeader title="Payment Settings" description="Payment gateway integration"
         actions={
           <button onClick={() => saveMut.mutate()}
             className="btn btn-primary inline-flex items-center gap-2">
@@ -60,9 +60,9 @@ export function PaymentSettingsPage() {
         } />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* BarterPay credentials */}
+        {/* Payment credentials */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
-          <h3 className="font-semibold text-gray-900">BarterPay Credentials</h3>
+          <h3 className="font-semibold text-gray-900">Payment Credentials</h3>
           <label className="block">
             <span className="text-sm font-medium text-gray-700">Merchant ID</span>
             <input type="text" value={merchantId} onChange={(e) => setMerchantId(e.target.value)}

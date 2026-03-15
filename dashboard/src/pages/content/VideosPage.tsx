@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { api } from '@/lib/api';
+import { api, assetUrl } from '@/lib/api';
 import { PageHeader, ConfirmDialog, TextField, ImageField } from '@/components/ui';
 import { Plus, Trash2, Pencil, Eye, EyeOff, Play } from 'lucide-react';
 
@@ -83,7 +83,7 @@ export function VideosPage() {
             {/* Thumbnail */}
             <div className="relative aspect-video bg-gray-100">
               {v.thumbnailUrl ? (
-                <img src={v.thumbnailUrl} alt="" className="h-full w-full object-cover" />
+                <img src={assetUrl(v.thumbnailUrl)} alt="" className="h-full w-full object-cover" />
               ) : (
                 <div className="flex h-full items-center justify-center">
                   <Play className="h-10 w-10 text-gray-300" />
@@ -101,7 +101,7 @@ export function VideosPage() {
                   {v.speakerName && (
                     <div className="mt-1 flex items-center gap-1.5">
                       {v.speakerAvatar && (
-                        <img src={v.speakerAvatar} alt="" className="h-5 w-5 rounded-full object-cover" />
+                        <img src={assetUrl(v.speakerAvatar)} alt="" className="h-5 w-5 rounded-full object-cover" />
                       )}
                       <span className="text-xs text-gray-500">{v.speakerName}</span>
                       {v.speakerRole && <span className="text-xs text-gray-400">· {v.speakerRole}</span>}

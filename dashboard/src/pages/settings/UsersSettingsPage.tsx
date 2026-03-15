@@ -95,7 +95,7 @@ export function UsersSettingsPage() {
               <p>No custom domain configured.</p>
               <p className="mt-2">To set up a custom domain:</p>
               <ol className="list-decimal list-inside mt-2 space-y-1">
-                <li>Add a CNAME record pointing to <code className="text-xs bg-gray-100 px-1 rounded">sites.barterpay.com</code></li>
+                <li>Add a CNAME record pointing to <code className="text-xs bg-gray-100 px-1 rounded">sites.yourdomain.com</code></li>
                 <li>Contact support to verify your domain</li>
               </ol>
             </div>
@@ -103,7 +103,7 @@ export function UsersSettingsPage() {
           {tenant && (
             <div className="pt-2 border-t border-gray-100">
               <p className="text-xs text-gray-500">
-                Default URL: <span className="font-mono">{tenant.slug}.barterpay.com</span>
+                Default URL: <span className="font-mono">{tenant.slug}.onrender.com</span>
               </p>
             </div>
           )}

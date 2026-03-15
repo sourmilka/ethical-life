@@ -45,7 +45,7 @@ async function main() {
       colorBackground: "#E6E6E6",
       colorBorder: "#D9D9D9",
       colorBorderLight: "#EBEBEB",
-      colorWhite: "#fff",
+      colorWhite: "#ffffff",
       contactEmail: "hello@ethicallife.com",
       contactPhone: "+44 20 7946 0958",
       contactAddress: "123 Wellness Street, London, EC1A 1BB",
@@ -57,6 +57,8 @@ async function main() {
       footerTagline: "Written by board-certified doctors to support your journey.",
       appStoreUrl: "#",
       playStoreUrl: "#",
+      termsContent: "<h2>Terms of Service</h2><p>Welcome to Ethical Life. By accessing or using our services, you agree to be bound by these Terms of Service.</p><h3>1. Services</h3><p>Ethical Life provides telehealth consultations, personalised treatment plans, and pharmaceutical fulfilment for weight management and wellness. All medical services are delivered by licensed healthcare professionals.</p><h3>2. Eligibility</h3><p>You must be at least 18 years old and a UK resident to use our services. You agree to provide accurate and complete health information during registration and consultations.</p><h3>3. Medical Disclaimer</h3><p>Our services do not replace emergency medical care. If you are experiencing a medical emergency, call 999 immediately. Treatment plans are personalised and results may vary.</p><h3>4. Privacy</h3><p>Your personal and medical data is handled in accordance with our Privacy Policy and UK data protection regulations (UK GDPR).</p><h3>5. Payment</h3><p>All prices are displayed in GBP. Payment is required at the time of order. Subscription plans may be cancelled at any time with 30 days notice.</p><h3>6. Limitation of Liability</h3><p>Ethical Life and its medical partners are not liable for adverse reactions to prescribed treatments when used as directed. You acknowledge that all medical treatments carry inherent risks.</p><h3>7. Changes</h3><p>We reserve the right to update these terms at any time. Continued use of our services constitutes acceptance of revised terms.</p>",
+      privacyContent: "<h2>Privacy Policy</h2><p>Ethical Life is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information.</p><h3>1. Information We Collect</h3><p>We collect personal information including your name, email address, date of birth, medical history, and payment details when you register for our services or complete a consultation.</p><h3>2. How We Use Your Information</h3><p>Your information is used to provide medical consultations, process prescriptions, improve our services, and communicate with you about your treatment plan. We do not sell your personal data to third parties.</p><h3>3. Data Security</h3><p>We implement industry-standard security measures including encryption, secure servers, and access controls to protect your personal and medical information.</p><h3>4. Data Retention</h3><p>Medical records are retained in accordance with NHS guidelines and UK law. You may request deletion of non-medical personal data at any time.</p><h3>5. Your Rights</h3><p>Under UK GDPR, you have the right to access, correct, or delete your personal data. You may also request a copy of your data in a portable format. To exercise these rights, contact us at privacy@ethicallife.com.</p><h3>6. Cookies</h3><p>Our website uses essential cookies to ensure proper functionality. Analytics cookies are only used with your consent.</p><h3>7. Contact</h3><p>For privacy-related enquiries, contact our Data Protection Officer at privacy@ethicallife.com or write to: Ethical Life, 123 Wellness Street, London, EC1A 1BB.</p>",
     },
   });
 
@@ -253,9 +255,11 @@ async function main() {
       description: "A GLP-1 receptor agonist that helps regulate appetite and blood sugar for clinically proven weight management.",
       howItWorks: "A GLP-1 receptor agonist that helps regulate appetite and blood sugar for clinically proven weight management.",
       priceText: "From £149/month",
+      priceAmount: 149,
       imageUrl: "/assets/images/1.png",
       isFeatured: true,
       sortOrder: 1,
+      features: ["Clinically proven GLP-1 receptor agonist", "Appetite regulation & blood sugar control", "Weekly injection schedule", "Doctor-monitored treatment plan", "Discreet home delivery"],
     },
     {
       slug: "tirzepatide",
@@ -265,9 +269,11 @@ async function main() {
       description: "A dual GIP/GLP-1 receptor agonist offering enhanced metabolic support and appetite control.",
       howItWorks: "A dual GIP/GLP-1 receptor agonist offering enhanced metabolic support and appetite control.",
       priceText: "From £199/month",
+      priceAmount: 199,
       imageUrl: "/assets/images/2.png",
       isFeatured: true,
       sortOrder: 2,
+      features: ["Dual GIP/GLP-1 receptor agonist", "Enhanced metabolic support", "Superior appetite control", "Personalised dosing schedule", "Clinical monitoring included"],
     },
     {
       slug: "metabolic-support-pack",
@@ -277,9 +283,11 @@ async function main() {
       description: "Targeted vitamins and minerals formulated by clinicians to complement your weight-loss journey.",
       howItWorks: "Targeted vitamins and minerals formulated by clinicians to complement your weight-loss journey.",
       priceText: "£39.99",
+      priceAmount: 39.99,
       imageUrl: "/assets/images/3.png",
       isFeatured: true,
       sortOrder: 3,
+      features: ["Clinician-formulated vitamin blend", "Supports weight-loss journey", "Essential minerals included", "Easy daily supplement", "No prescription required"],
     },
     {
       slug: "vitamin-b12-complex",
@@ -289,9 +297,11 @@ async function main() {
       description: "High-strength B12 to support energy levels, reduce fatigue, and aid nervous system function.",
       howItWorks: "High-strength B12 to support energy levels, reduce fatigue, and aid nervous system function.",
       priceText: "£19.99",
+      priceAmount: 19.99,
       imageUrl: "/assets/images/4.png",
       isFeatured: true,
       sortOrder: 4,
+      features: ["High-strength B12 formula", "Reduces fatigue & tiredness", "Supports nervous system function", "Easy-to-swallow capsules", "90-day supply"],
     },
     {
       slug: "omega-3-fish-oil",
@@ -301,9 +311,11 @@ async function main() {
       description: "Pharmaceutical-grade omega-3 for heart health, inflammation support, and overall wellbeing.",
       howItWorks: "Pharmaceutical-grade omega-3 for heart health, inflammation support, and overall wellbeing.",
       priceText: "£14.99",
+      priceAmount: 14.99,
       imageUrl: "/assets/images/5.png",
       isFeatured: true,
       sortOrder: 5,
+      features: ["Pharmaceutical-grade omega-3", "Supports heart health", "Anti-inflammatory benefits", "Sustainably sourced fish oil", "60-capsule supply"],
     },
   ];
 
@@ -318,14 +330,14 @@ async function main() {
   await prisma.video.deleteMany({ where: { tenantId } });
 
   const videoData = [
-    { title: "Dr Sarah Mitchell", speakerName: "Dr Sarah Mitchell", speakerRole: "Medical Director", speakerAvatar: "/assets/images/doctor.png", sortOrder: 1 },
-    { title: "James Chen", speakerName: "James Chen", speakerRole: "Nutritionist", speakerAvatar: "/assets/images/pp.png", sortOrder: 2 },
-    { title: "Amara Osei", speakerName: "Amara Osei", speakerRole: "Health Coach", speakerAvatar: "/assets/images/user.png", sortOrder: 3 },
-    { title: "Dr Raj Patel", speakerName: "Dr Raj Patel", speakerRole: "Endocrinologist", speakerAvatar: "/assets/images/doctor.png", sortOrder: 4 },
-    { title: "Emma Williams", speakerName: "Emma Williams", speakerRole: "Patient Story", speakerAvatar: "/assets/images/pp.png", sortOrder: 5 },
-    { title: "Michael Rivera", speakerName: "Michael Rivera", speakerRole: "Patient Story", speakerAvatar: "/assets/images/user.png", sortOrder: 6 },
-    { title: "Dr Lisa Kim", speakerName: "Dr Lisa Kim", speakerRole: "Clinical Pharmacist", speakerAvatar: "/assets/images/doctor.png", sortOrder: 7 },
-    { title: "Priya Patel", speakerName: "Priya Patel", speakerRole: "Patient Story", speakerAvatar: "/assets/images/pp.png", sortOrder: 8 },
+    { title: "Dr Sarah Mitchell", speakerName: "Dr Sarah Mitchell", speakerRole: "Medical Director", speakerAvatar: "/assets/images/doctor.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 1 },
+    { title: "James Chen", speakerName: "James Chen", speakerRole: "Nutritionist", speakerAvatar: "/assets/images/pp.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 2 },
+    { title: "Amara Osei", speakerName: "Amara Osei", speakerRole: "Health Coach", speakerAvatar: "/assets/images/user.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 3 },
+    { title: "Dr Raj Patel", speakerName: "Dr Raj Patel", speakerRole: "Endocrinologist", speakerAvatar: "/assets/images/doctor.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 4 },
+    { title: "Emma Williams", speakerName: "Emma Williams", speakerRole: "Patient Story", speakerAvatar: "/assets/images/pp.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 5 },
+    { title: "Michael Rivera", speakerName: "Michael Rivera", speakerRole: "Patient Story", speakerAvatar: "/assets/images/user.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 6 },
+    { title: "Dr Lisa Kim", speakerName: "Dr Lisa Kim", speakerRole: "Clinical Pharmacist", speakerAvatar: "/assets/images/doctor.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 7 },
+    { title: "Priya Patel", speakerName: "Priya Patel", speakerRole: "Patient Story", speakerAvatar: "/assets/images/pp.png", thumbnailUrl: "/assets/images/bg.png", sortOrder: 8 },
   ];
 
   for (const v of videoData) {
