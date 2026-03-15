@@ -74,9 +74,9 @@ export function LegalSettingsPage() {
 
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         {tab === 'terms' ? (
-          <RichTextEditor content={terms} onChange={setTerms} />
+          <RichTextEditor key="terms" content={terms} onChange={setTerms} />
         ) : (
-          <RichTextEditor content={privacy} onChange={setPrivacy} />
+          <RichTextEditor key="privacy" content={privacy} onChange={setPrivacy} />
         )}
       </div>
     </div>
