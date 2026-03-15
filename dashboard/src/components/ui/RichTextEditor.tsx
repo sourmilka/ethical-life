@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
@@ -27,6 +28,8 @@ export function RichTextEditor({
   onChange,
   placeholder = 'Start typing\u2026',
 }: RichTextEditorProps) {
+  const initialised = useRef(false);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -39,6 +42,17 @@ export function RichTextEditor({
       onChange(e.getHTML());
     },
   });
+
+  // Sync external content into the editor when it arrives after mount
+  useEffect(() => {
+    if (editor && content && !initialised.current) {
+      const current = editor.getHTML();
+      if (current === '<p></p>' || current === '') {
+        editor.commands.setContent(content);
+        initialised.current = true;
+      }
+    }
+  }, [editor, content]);
 
   if (!editor) return null;
 
