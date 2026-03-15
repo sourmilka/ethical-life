@@ -1,0 +1,6 @@
+/* ===== Top Wrapper ===== */
+.top-wrapper {
+    background-color: #fff;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    padding-bottom: 40px;
+}

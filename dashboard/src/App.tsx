@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 const LoginPage = lazy(() => import('@/pages/LoginPage').then(m => ({ default: m.LoginPage })));
 const RegisterPage = lazy(() => import('@/pages/RegisterPage').then(m => ({ default: m.RegisterPage })));
 const OverviewPage = lazy(() => import('@/pages/OverviewPage').then(m => ({ default: m.OverviewPage })));
-const PlaceholderPage = lazy(() => import('@/pages/PlaceholderPage').then(m => ({ default: m.PlaceholderPage })));
+const PreviewPage = lazy(() => import('@/pages/PreviewPage').then(m => ({ default: m.PreviewPage })));
 
 // Website
 const PagesPage = lazy(() => import('@/pages/website/PagesPage').then(m => ({ default: m.PagesPage })));
@@ -106,7 +106,7 @@ export default function App() {
           <Route path="settings/legal" element={<LegalSettingsPage />} />
 
           {/* Preview */}
-          <Route path="preview" element={<PlaceholderPage title="Live Preview" />} />
+          <Route path="preview" element={<PreviewPage />} />
         </Route>
       </Route>
     </Routes>

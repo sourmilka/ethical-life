@@ -1,0 +1,13 @@
+/* FAQ Page — aggregates all styles for pages/faq.html */
+
+/* Base */
+@import '../base/variables.css';
+@import '../base/reset.css';
+@import '../base/typography.css';
+
+/* Components */
+@import '../components/navbar.css';
+@import '../components/buttons.css';
+@import '../components/page-hero.css';
+@import '../components/faq-page.css';
+@import '../components/footer.css';

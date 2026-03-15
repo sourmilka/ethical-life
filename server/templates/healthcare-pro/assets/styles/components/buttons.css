@@ -1,0 +1,74 @@
+/* ===== Shared Buttons ===== */
+.form-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 0 0;
+    margin-left: var(--page-padding);
+    width: var(--btn-width);
+    height: 48px;
+    padding: 0 24px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-family: 'Lay Grotesk', sans-serif;
+    transition: opacity 0.2s ease;
+}
+
+.form-btn:hover {
+    opacity: 0.85;
+}
+
+.video-arrows {
+    display: flex;
+    gap: 12px;
+}
+
+.video-arrow {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-border);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    font-family: 'Lay Grotesk', sans-serif;
+}
+
+.video-arrow:hover {
+    background-color: var(--color-border);
+}
+
+/* ===== Responsive — Buttons ===== */
+@media (max-width: 768px) {
+    .form-btn {
+        width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-btn {
+        margin-left: var(--page-padding);
+        margin-right: var(--page-padding);
+        width: calc(100% - var(--page-padding) * 2);
+        max-width: var(--btn-width);
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .video-arrow {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}

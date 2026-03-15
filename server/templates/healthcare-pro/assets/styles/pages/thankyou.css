@@ -1,0 +1,11 @@
+/* Thank-You Page — aggregates all styles for thank-you.html */
+
+/* Base */
+@import '../base/variables.css';
+@import '../base/reset.css';
+@import '../base/typography.css';
+
+/* Components */
+@import '../components/form-layout.css';
+@import '../components/form-card.css';
+@import '../components/thankyou-card.css';

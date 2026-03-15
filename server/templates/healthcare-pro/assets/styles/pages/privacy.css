@@ -1,0 +1,13 @@
+/* Privacy Policy Page — aggregates all styles for pages/privacy.html */
+
+/* Base */
+@import '../base/variables.css';
+@import '../base/reset.css';
+@import '../base/typography.css';
+
+/* Components */
+@import '../components/navbar.css';
+@import '../components/buttons.css';
+@import '../components/page-hero.css';
+@import '../components/content-section.css';
+@import '../components/footer.css';

@@ -1,0 +1,48 @@
+/* ===== Intro / Section Title ===== */
+.intro-section {
+    display: block;
+}
+
+.section-title {
+    margin: 40px 0 0 0;
+    padding: 0 var(--page-padding);
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--color-black);
+    line-height: 1;
+}
+
+.section-desc {
+    margin: 20px 0 0 0;
+    padding: 0 var(--page-padding);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-black);
+    line-height: 1.5;
+}
+
+/* ===== Responsive — Intro ===== */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 48px;
+    }
+
+    .section-desc {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 32px;
+        margin-top: 24px;
+    }
+
+    .section-desc {
+        font-size: 15px;
+    }
+
+    .section-desc br {
+        display: none;
+    }
+}

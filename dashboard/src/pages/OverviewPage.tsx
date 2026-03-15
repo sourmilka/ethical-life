@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { api } from '@/lib/api';
+
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+const SERVER_URL = API_URL.replace(/\/api\/?$/, '');
+
 import { PageHeader, StatusBadge } from '@/components/ui';
 import {
   ClipboardList,
@@ -73,7 +77,7 @@ export function OverviewPage() {
       {/* Quick actions */}
       <div className="mt-8 flex flex-wrap gap-3">
         <button
-          onClick={() => window.open('/', '_blank')}
+          onClick={() => window.open(SERVER_URL || '/', '_blank')}
           className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           <ExternalLink className="h-4 w-4" /> View Live Site

@@ -1,0 +1,80 @@
+/* ===== Form Card & Steps ===== */
+.form-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ===== Steps ===== */
+.form-step {
+    display: none;
+    padding: 24px 32px 4px;
+    animation: stepIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.form-step.active { display: block; }
+
+.form-step.slide-out {
+    animation: stepOut 0.25s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.form-step.slide-out-back {
+    animation: stepOutBack 0.25s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.form-step.slide-back-in {
+    animation: stepBackIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes stepIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes stepOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-20px); }
+}
+
+@keyframes stepOutBack {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(20px); }
+}
+
+@keyframes stepBackIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.step-title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 4px 0;
+}
+
+.step-sub {
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.45;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+/* ===== Responsive — Form Card ===== */
+@media (max-width: 768px) {
+    .form-card { max-width: 100%; }
+    .form-step { padding: 20px 20px 4px; }
+}
+
+@media (max-width: 1024px) {
+    .form-step { padding: 24px 28px 4px; }
+}
+
+@media (max-width: 480px) {
+    .form-step { padding: 16px 16px 4px; }
+    .step-title { font-size: 18px; }
+}

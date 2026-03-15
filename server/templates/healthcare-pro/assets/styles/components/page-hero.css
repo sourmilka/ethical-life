@@ -1,0 +1,69 @@
+/* ===== Page Hero — Reusable Inner-page Hero Banner ===== */
+.page-hero {
+    margin: 0 var(--page-padding);
+    background-color: var(--color-black);
+    padding: 100px 60px 80px;
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.page-hero h1,
+.page-hero-inner h1 {
+    margin: 0;
+    font-size: 56px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+}
+
+.page-hero > p,
+.page-hero-inner > p {
+    margin: 20px auto 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    max-width: 560px;
+}
+
+.page-hero-breadcrumb {
+    margin: 0 0 24px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.page-hero-breadcrumb a {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.page-hero-breadcrumb a:hover {
+    color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 80px 32px 60px;
+    }
+    .page-hero h1,
+    .page-hero-inner h1 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-hero {
+        padding: 70px 16px 50px;
+    }
+    .page-hero h1,
+    .page-hero-inner h1 {
+        font-size: 32px;
+    }
+    .page-hero > p,
+    .page-hero-inner > p {
+        font-size: 15px;
+    }
+}

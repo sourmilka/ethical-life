@@ -88,7 +88,7 @@ router.get("/pages/blog/:slug", async (req, res, next) => {
       ...data,
       pageTitle: `${blogPost.title} | ${(data.settings as any)?.companyName || ""}`,
       pageDescription: "",
-      pageScript: "blog-post",
+      pageScript: "blog",
     });
   } catch (err) {
     next(err);
@@ -139,7 +139,7 @@ router.get("/pages/thank-you.html", async (req, res, next) => {
       ...data,
       pageTitle: "Thank You",
       pageDescription: "",
-      pageScript: "thank-you",
+      pageScript: "thankyou",
     });
   } catch (err) {
     next(err);

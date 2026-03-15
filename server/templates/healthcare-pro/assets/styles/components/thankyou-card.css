@@ -1,0 +1,77 @@
+/* ===== Thank-you Card ===== */
+.ty-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    padding: 60px 40px;
+    text-align: center;
+    animation: stepIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ty-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+}
+
+.ty-icon svg { width: 72px; height: 72px; }
+
+.ty-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: drawCircle 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+
+.ty-tick {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: drawTick 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+}
+
+@keyframes drawCircle { to { stroke-dashoffset: 0; } }
+@keyframes drawTick   { to { stroke-dashoffset: 0; } }
+
+.ty-title {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+}
+
+.ty-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.55;
+    margin: 0 0 28px 0;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 28px;
+    border-radius: 8px;
+    background: var(--color-black);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Lay Grotesk', sans-serif;
+    transition: background 0.2s;
+}
+
+.ty-btn:hover { background: #2a2a2a; }
+
+/* ===== Responsive — Thank-you Card ===== */
+@media (max-width: 768px) {
+    .ty-card { max-width: 100%; padding: 48px 20px; }
+}
+
+@media (max-width: 480px) {
+    .ty-card { padding: 40px 16px; }
+    .ty-title { font-size: 22px; }
+}

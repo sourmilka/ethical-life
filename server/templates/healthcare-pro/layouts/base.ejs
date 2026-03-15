@@ -26,7 +26,7 @@
     </style>
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="/assets/css/healthcare-pro.css">
+    <link rel="stylesheet" href="/assets/styles/pages/<%= locals.pageScript || 'home' %>.css">
 
     <% if (settings && settings.googleAnalyticsId) { %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=<%= settings.googleAnalyticsId %>"></script>
@@ -42,7 +42,7 @@
     <%- body %>
 
     <% if (locals.pageScript) { %>
-    <script type="module" src="/assets/js/<%= pageScript %>.js"></script>
+    <script type="module" src="/assets/js/pages/<%= pageScript %>.js"></script>
     <% } %>
 </body>
 </html>

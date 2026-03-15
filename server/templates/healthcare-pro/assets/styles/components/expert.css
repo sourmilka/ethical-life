@@ -1,0 +1,72 @@
+/* ===== Expert Section ===== */
+.expert-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px var(--page-padding);
+    box-sizing: border-box;
+    width: 100%;
+    gap: 60px;
+}
+
+.expert-left {
+    flex: 1.5;
+}
+
+.expert-title {
+    margin: 0;
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--color-black);
+    line-height: 1.1;
+}
+
+.expert-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 40px;
+    flex-shrink: 0;
+}
+
+.expert-right .form-btn {
+    margin: 0;
+}
+
+/* ===== Responsive — Expert ===== */
+@media (max-width: 768px) {
+    .expert-section {
+        padding: 60px var(--page-padding);
+        gap: 40px;
+    }
+
+    .expert-title {
+        font-size: 42px;
+    }
+
+    .expert-right .form-btn {
+        width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .expert-section {
+        flex-direction: column;
+        padding: 40px var(--page-padding);
+        gap: 32px;
+    }
+
+    .expert-title {
+        font-size: 28px;
+    }
+
+    .expert-title br {
+        display: none;
+    }
+
+    .expert-right .form-btn {
+        width: 100%;
+        max-width: var(--btn-width);
+        margin-left: 0;
+    }
+}

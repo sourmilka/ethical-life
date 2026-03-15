@@ -1,0 +1,11 @@
+/* Payment Page — aggregates all styles for payment.html */
+
+/* Base */
+@import '../base/variables.css';
+@import '../base/reset.css';
+@import '../base/typography.css';
+
+/* Components */
+@import '../components/form-layout.css';
+@import '../components/payment-card.css';
+@import '../components/loader.css';

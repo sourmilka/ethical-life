@@ -1,0 +1,110 @@
+/* ===== Markers Section ===== */
+.markers-section {
+    margin-top: 180px;
+    padding: 0 var(--page-padding);
+    box-sizing: border-box;
+}
+
+.markers-title {
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--color-black);
+    margin: 0;
+}
+
+.markers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 40px;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.markers-box {
+    height: 300px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    box-sizing: border-box;
+    border-right: 1px solid var(--color-border-light);
+    transition: background-color 0.2s ease;
+}
+
+.markers-box:hover {
+    background-color: var(--color-bg);
+}
+
+.markers-box:last-child {
+    border-right: none;
+}
+
+.markers-box-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.markers-box-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--color-black);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.markers-box-sub {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-black);
+    margin: 0;
+    line-height: 1.4;
+    min-height: 76px;
+}
+
+/* ===== Responsive — Markers ===== */
+@media (max-width: 768px) {
+    .markers-title {
+        font-size: 42px;
+    }
+
+    .markers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .markers-box {
+        border-right: 1px solid var(--color-border-light);
+        border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .markers-box:nth-child(2),
+    .markers-box:nth-child(4) {
+        border-right: none;
+    }
+
+    .markers-box:nth-child(3),
+    .markers-box:nth-child(4) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .markers-title {
+        font-size: 28px;
+    }
+
+    .markers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .markers-box {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .markers-box:last-child {
+        border-bottom: none;
+    }
+}

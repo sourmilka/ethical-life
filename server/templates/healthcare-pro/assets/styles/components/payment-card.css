@@ -1,0 +1,98 @@
+/* ===== Payment Card (BarterPay iframe) ===== */
+.pay-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: stepIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pay-header {
+    padding: 28px 32px 20px;
+}
+
+.pay-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+}
+
+.pay-sub {
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.45;
+    margin: 0;
+}
+
+.pay-iframe-wrap {
+    width: 100%;
+    min-height: 500px;
+    border-top: 1px solid var(--color-border-light);
+    position: relative;
+}
+
+.pay-iframe-wrap iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    display: block;
+}
+
+.pay-iframe-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    gap: 12px;
+}
+
+.pay-iframe-loading .loader-ring {
+    width: 48px;
+    height: 48px;
+}
+
+.pay-iframe-loading p {
+    font-size: 13px;
+    opacity: 0.45;
+}
+
+.pay-error {
+    padding: 32px;
+    text-align: center;
+}
+
+.pay-error p {
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 16px;
+}
+
+.pay-error button {
+    height: 40px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 8px;
+    background: var(--color-black);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Lay Grotesk', sans-serif;
+    cursor: pointer;
+}
+
+.pay-secure {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.35;
+    padding: 12px;
+}
+
+/* ===== Responsive — Payment Card ===== */
+@media (max-width: 768px) {
+    .pay-card { max-width: 100%; }
+}

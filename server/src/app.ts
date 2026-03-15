@@ -37,10 +37,15 @@ export function createApp() {
   app.use("/assets", express.static(path.join(__dirname, "..", "templates", "healthcare-pro", "assets")));
 
   // ── Security ────────────────────────────────────────────
-  app.use(helmet());
+  const corsOrigins = env.CORS_ORIGIN.split(",").map(o => o.trim());
+  app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    frameguard: false,
+  }));
   app.use(
     cors({
-      origin: env.CORS_ORIGIN.split(","),
+      origin: corsOrigins,
       credentials: true,
     }),
   );
