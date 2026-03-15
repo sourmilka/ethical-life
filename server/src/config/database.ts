@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
-import pg from "pg";
 import { env } from "./env.js";
 
 // Supabase pooler uses certificates not in the default CA chain.
@@ -12,10 +11,7 @@ if (env.DATABASE_URL.includes("supabase.com")) {
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 function createPrismaClient() {
-  const pool = new pg.Pool({
-    connectionString: env.DATABASE_URL,
-  });
-  const adapter = new PrismaPg(pool);
+  const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
   return new PrismaClient({
     adapter,
     log: env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
