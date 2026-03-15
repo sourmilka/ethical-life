@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, Navigate } from 'react-router';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Loader2 } from 'lucide-react';
@@ -57,6 +57,9 @@ export default function App() {
   return (
     <Suspense fallback={<PageFallback />}>
       <Routes>
+      {/* Redirect root to dashboard */}
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
       {/* Public auth routes */}
       <Route path="/dashboard/login" element={<LoginPage />} />
       <Route path="/dashboard/register" element={<RegisterPage />} />
