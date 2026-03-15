@@ -1,0 +1,38 @@
+<!-- Stories Section -->
+<section class="stories-section">
+    <div class="stories-header">
+        <h2 class="stories-title">Stories worth sharing</h2>
+        <div class="stories-arrows">
+            <button class="video-arrow stories-arrow-left" id="storiesArrowLeft">&lt;</button>
+            <button class="video-arrow stories-arrow-right" id="storiesArrowRight">&gt;</button>
+        </div>
+    </div>
+    <div class="stories-grid">
+        <div class="stories-track" id="storiesTrack">
+            <% testimonials.forEach(function(t) { %>
+            <div class="stories-card">
+                <div class="stories-stars">
+                    <% for (var i = 0; i < (t.rating || 5); i++) { %>&#9733;<% } %>
+                </div>
+                <p class="stories-text"><%= t.content %></p>
+                <div class="stories-user">
+                    <div class="stories-user-left">
+                        <% if (t.avatarUrl) { %>
+                        <img src="<%= t.avatarUrl %>" alt="<%= t.authorName %>" class="stories-pp">
+                        <% } %>
+                        <div class="stories-user-info">
+                            <span class="stories-user-name"><%= t.authorName %></span>
+                            <% if (t.createdAt) { %>
+                            <span class="stories-user-date"><%= new Date(t.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% if (t.sourceIcon) { %>
+                    <img src="<%= t.sourceIcon %>" alt="<%= t.source || '' %>" class="stories-google">
+                    <% } %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>

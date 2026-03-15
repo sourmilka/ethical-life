@@ -1,0 +1,23 @@
+{
+  "name": "ethical-life",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ethical Life — Healthcare & telemedicine platform",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write \"src/**/*.{js,css,html}\" \"*.html\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "postcss": "^8.5.8",
+    "prettier": "^3.8.1",
+    "vite": "^8.0.0"
+  }
+}

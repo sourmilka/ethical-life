@@ -1,0 +1,118 @@
+/* ===== Standalone FAQ Page ===== */
+.faq-page-section {
+    padding: 60px var(--page-padding) 80px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-page-section .faq-category {
+    margin-bottom: 48px;
+}
+
+.faq-page-section .faq-category-title {
+    margin: 0 0 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-black);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.faq-page-section .faq-item {
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.faq-page-section .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Lay Grotesk', sans-serif;
+    color: var(--color-black);
+    cursor: pointer;
+    text-align: left;
+    gap: 16px;
+}
+
+.faq-page-section .faq-question:hover {
+    opacity: 0.7;
+}
+
+.faq-page-section .faq-icon {
+    font-size: 22px;
+    font-weight: 300;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.faq-page-section .faq-question[aria-expanded="true"] .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-page-section .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.faq-page-section .faq-answer p {
+    margin: 0;
+    padding: 0 0 20px;
+    font-size: 15px;
+    color: var(--color-black);
+    opacity: 0.6;
+    line-height: 1.7;
+}
+
+.faq-page-contact {
+    text-align: center;
+    padding: 60px var(--page-padding);
+    background: var(--color-white);
+    border-radius: var(--radius-sm);
+    margin: 0 var(--page-padding) 80px;
+}
+
+.faq-page-contact h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.faq-page-contact p {
+    margin: 0 0 24px;
+    font-size: 16px;
+    color: var(--color-black);
+    opacity: 0.55;
+}
+
+.faq-page-contact .contact-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Lay Grotesk', sans-serif;
+    background: var(--color-black);
+    color: var(--color-white);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.faq-page-contact .contact-link:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+    .faq-page-contact {
+        margin: 0 0 60px;
+        border-radius: 0;
+    }
+}

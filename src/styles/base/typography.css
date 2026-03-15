@@ -1,0 +1,36 @@
+/* ===== Typography & Font Face ===== */
+@font-face {
+    font-family: 'Lay Grotesk';
+    src: url('/font/690b82449c5ab8c3be322b42_LayGrotesk-Regular.woff2') format('woff2'),
+         url('/font/690b82435e29b5ecf8ea73e3_LayGrotesk-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lay Grotesk';
+    src: url('/font/690b82449c5ab8c3be322b45_LayGrotesk-Medium.woff2') format('woff2'),
+         url('/font/690b8243fd7aa5c129c1adf0_LayGrotesk-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lay Grotesk';
+    src: url('/font/690b82449c5ab8c3be322b45_LayGrotesk-Medium.woff2') format('woff2'),
+         url('/font/690b8243fd7aa5c129c1adf0_LayGrotesk-Medium.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lay Grotesk';
+    src: url('/font/690b82449c5ab8c3be322b45_LayGrotesk-Medium.woff2') format('woff2'),
+         url('/font/690b8243fd7aa5c129c1adf0_LayGrotesk-Medium.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}

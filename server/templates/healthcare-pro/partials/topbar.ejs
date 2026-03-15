@@ -1,0 +1,47 @@
+<!-- Top Bar -->
+<div class="top-bar" id="topBar">
+    <% if (settings && settings.promoBannerText) { %>
+    <div class="header-stripe">
+        <p class="black-18"><%= settings.promoBannerText %></p>
+        <% if (settings.promoBannerUrl) { %>
+        <a href="<%= settings.promoBannerUrl %>" class="explore"><%= settings.promoBannerCta || 'EXPLORE' %></a>
+        <% } %>
+    </div>
+    <% } %>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="/"><img src="<%= (settings && settings.logoUrl) || '/assets/images/logo.svg' %>" alt="<%= (settings && settings.companyName) || 'Logo' %>"></a>
+        </div>
+        <div class="nav-right">
+            <% if (navigation && navigation.navbar) { %>
+            <% navigation.navbar.forEach(function(link) { %>
+            <a href="<%= link.url %>" class="<%= link.cssClass || '' %>"
+               <% if (link.openInNewTab) { %>target="_blank" rel="noopener noreferrer"<% } %>><%= link.label %></a>
+            <% }); %>
+            <% } %>
+            <button class="burger-menu" id="burgerBtn" aria-label="Menu">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+    </nav>
+</div>
+<div class="top-bar-spacer"></div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar Menu -->
+<aside class="sidebar" id="sidebar" aria-label="Navigation menu">
+    <nav class="sidebar-nav">
+        <% if (navigation && navigation.sidebar) { %>
+        <% navigation.sidebar.forEach(function(link) { %>
+        <a href="<%= link.url %>" class="sidebar-link"
+           <% if (link.openInNewTab) { %>target="_blank" rel="noopener noreferrer"<% } %>><%= link.label %></a>
+        <% }); %>
+        <% } %>
+    </nav>
+</aside>

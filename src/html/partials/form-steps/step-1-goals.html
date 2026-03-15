@@ -1,0 +1,32 @@
+<!-- Step 1: Goal & Body Metrics -->
+<div class="form-step" data-step="1">
+    <h2 class="step-title">Your goal &amp; body metrics</h2>
+    <p class="step-sub">Help us understand what you're looking for.</p>
+
+    <div class="form-group">
+        <label for="goal" class="sr-only">Primary goal</label>
+        <select id="goal" name="goal" required>
+            <option value="" disabled selected>Primary goal *</option>
+            <option value="weight_management">Weight management</option>
+            <option value="longevity_wellness">Longevity / wellness</option>
+            <option value="hormone_metabolic">Hormone / metabolic support</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="goalOtherGroup" style="display:none;">
+        <label for="goalOther" class="sr-only">Describe your goal</label>
+        <input type="text" id="goalOther" name="goalOther" placeholder="Describe your goal *">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="heightIn" class="sr-only">Height (inches)</label>
+            <input type="number" id="heightIn" name="heightIn" placeholder="Height (inches) *" min="36" max="96" required>
+        </div>
+        <div class="form-group">
+            <label for="weightLb" class="sr-only">Weight (lbs)</label>
+            <input type="number" id="weightLb" name="weightLb" placeholder="Weight (lbs) *" min="70" max="700" required>
+        </div>
+    </div>
+</div>

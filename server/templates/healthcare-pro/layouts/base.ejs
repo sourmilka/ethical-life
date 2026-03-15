@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.pageTitle || (settings && settings.metaTitle) || (settings && settings.companyName) || 'Site' %></title>
+    <meta name="description" content="<%= locals.pageDescription || (settings && settings.metaDescription) || '' %>">
+    <% if (settings && settings.ogImageUrl) { %>
+    <meta property="og:image" content="<%= settings.ogImageUrl %>">
+    <% } %>
+    <% if (settings && settings.faviconUrl) { %>
+    <link rel="icon" href="<%= settings.faviconUrl %>">
+    <% } %>
+
+    <!-- Dynamic CSS variables from tenant branding -->
+    <style>
+        :root {
+            --color-black: <%= (settings && settings.colorPrimary) || '#0D0D0D' %>;
+            --color-accent: <%= (settings && settings.colorAccent) || '#FFCD93' %>;
+            --color-secondary: <%= (settings && settings.colorSecondary) || '#FF967A' %>;
+            --color-bg: <%= (settings && settings.colorBackground) || '#E6E6E6' %>;
+            --color-border: <%= (settings && settings.colorBorder) || '#D9D9D9' %>;
+            --color-border-light: <%= (settings && settings.colorBorderLight) || '#EBEBEB' %>;
+            --color-white: <%= (settings && settings.colorWhite) || '#fff' %>;
+        }
+    </style>
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/healthcare-pro.css">
+
+    <% if (settings && settings.googleAnalyticsId) { %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= settings.googleAnalyticsId %>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<%= settings.googleAnalyticsId %>');
+    </script>
+    <% } %>
+</head>
+<body>
+    <%- body %>
+
+    <% if (locals.pageScript) { %>
+    <script type="module" src="/assets/js/<%= pageScript %>.js"></script>
+    <% } %>
+</body>
+</html>

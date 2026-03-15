@@ -1,0 +1,30 @@
+<!-- Carousel Section -->
+<div class="carousel-section">
+    <div class="carousel-track">
+        <% products.forEach(function(product, index) { %>
+        <div class="carousel-card<%= index === 2 ? ' active' : '' %>" data-index="<%= index %>">
+            <% if (product.category) { %>
+            <div class="carousel-indicator">
+                <span class="indicator-label"><%= product.category.name %></span>
+                <span class="indicator-count"><%= products.length %></span>
+            </div>
+            <% } %>
+            <div class="carousel-top-box">
+                <% if (product.imageUrl) { %>
+                <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="carousel-img">
+                <% } %>
+                <p class="carousel-card-title"><%= product.title %></p>
+            </div>
+            <div class="carousel-bottom-box">
+                <% if (product.howItWorks) { %>
+                <p class="carousel-explaining">How it works</p>
+                <p class="carousel-info-text"><%= product.howItWorks %></p>
+                <% } else if (product.description) { %>
+                <p class="carousel-info-text"><%= product.description %></p>
+                <% } %>
+                <a href="/pages/forms.html?product=<%= product.slug %>" class="carousel-fill-form">Fill form</a>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>

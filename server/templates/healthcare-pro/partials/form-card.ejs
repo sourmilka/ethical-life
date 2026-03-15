@@ -1,0 +1,91 @@
+<!-- Form Page — Right Panel (Dynamic Form Card) -->
+<div class="form-right">
+    <div class="form-card">
+        <form id="intakeForm" novalidate data-form-slug="<%= formDef.slug %>" data-submit-url="/api/public/forms/<%= formDef.slug %>/submit">
+            <% var currentStep = -1; %>
+            <% formDef.fields.forEach(function(field, idx) { %>
+                <% if (field.step !== currentStep) { %>
+                    <% if (currentStep >= 0) { %>
+                        <!-- Nav for previous step -->
+                        <div class="step-nav">
+                            <% if (currentStep > 0) { %>
+                            <button type="button" class="btn btn-outline step-prev">Back</button>
+                            <% } %>
+                            <button type="button" class="btn btn-primary step-next">Continue</button>
+                        </div>
+                    </div><!-- close previous .form-step -->
+                    <% } %>
+                    <% currentStep = field.step; %>
+                    <div class="form-step<%= currentStep === 0 ? ' active' : '' %>" data-step="<%= currentStep %>">
+                        <% if (field.stepTitle) { %>
+                        <h2 class="step-title"><%= field.stepTitle %></h2>
+                        <% } %>
+                        <% if (field.stepDescription) { %>
+                        <p class="step-sub"><%= field.stepDescription %></p>
+                        <% } %>
+                <% } %>
+
+                <!-- Field: <%= field.label %> -->
+                <div class="form-group" data-field-id="<%= field.id %>"
+                    <% if (field.conditionalOn) { %> data-condition='<%- JSON.stringify(field.conditionalOn) %>' style="display:none;"<% } %>>
+
+                    <% if (field.fieldType === 'text' || field.fieldType === 'email' || field.fieldType === 'tel' || field.fieldType === 'date' || field.fieldType === 'number') { %>
+                        <label for="field_<%= field.id %>" class="sr-only"><%= field.label %></label>
+                        <input type="<%= field.fieldType %>" id="field_<%= field.id %>" name="<%= field.name %>"
+                            placeholder="<%= field.placeholder || field.label %><%= field.isRequired ? ' *' : '' %>"
+                            <% if (field.isRequired) { %>required<% } %>
+                            <% if (field.validationRules && field.validationRules.maxLength) { %>maxlength="<%= field.validationRules.maxLength %>"<% } %>>
+
+                    <% } else if (field.fieldType === 'textarea') { %>
+                        <label for="field_<%= field.id %>" class="sr-only"><%= field.label %></label>
+                        <textarea id="field_<%= field.id %>" name="<%= field.name %>"
+                            placeholder="<%= field.placeholder || field.label %><%= field.isRequired ? ' *' : '' %>"
+                            rows="<%= (field.validationRules && field.validationRules.rows) || 4 %>"
+                            <% if (field.isRequired) { %>required<% } %>></textarea>
+
+                    <% } else if (field.fieldType === 'select') { %>
+                        <label for="field_<%= field.id %>" class="sr-only"><%= field.label %></label>
+                        <select id="field_<%= field.id %>" name="<%= field.name %>" <% if (field.isRequired) { %>required<% } %>>
+                            <option value="" disabled selected><%= field.placeholder || 'Select…' %></option>
+                            <% if (field.options) { field.options.forEach(function(opt) { %>
+                            <option value="<%= opt.value || opt %>"><%= opt.label || opt %></option>
+                            <% }); } %>
+                        </select>
+
+                    <% } else if (field.fieldType === 'radio') { %>
+                        <fieldset class="radio-group">
+                            <legend><%= field.label %><%= field.isRequired ? ' *' : '' %></legend>
+                            <% if (field.options) { field.options.forEach(function(opt, oi) { %>
+                            <label class="radio-label">
+                                <input type="radio" name="<%= field.name %>" value="<%= opt.value || opt %>"
+                                    <% if (field.isRequired && oi === 0) { %>required<% } %>>
+                                <span><%= opt.label || opt %></span>
+                            </label>
+                            <% }); } %>
+                        </fieldset>
+
+                    <% } else if (field.fieldType === 'checkbox') { %>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="<%= field.name %>" value="1"
+                                <% if (field.isRequired) { %>required<% } %>>
+                            <span><%- field.label %></span>
+                        </label>
+
+                    <% } else if (field.fieldType === 'heading') { %>
+                        <h3 class="form-heading"><%= field.label %></h3>
+
+                    <% } %>
+                </div>
+            <% }); %>
+
+            <!-- Final step nav -->
+            <div class="step-nav">
+                <% if (currentStep > 0) { %>
+                <button type="button" class="btn btn-outline step-prev">Back</button>
+                <% } %>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </div><!-- close last .form-step -->
+        </form>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+/* ===== Careers Page ===== */
+
+/* ——— Intro section ——— */
+.careers-intro {
+    padding: 60px var(--page-padding) 48px;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.careers-intro h2 {
+    margin: 0 0 12px;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.careers-intro p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--color-black);
+    opacity: 0.55;
+    line-height: 1.7;
+}
+
+/* ——— Openings grid ——— */
+.careers-openings {
+    padding: 0 var(--page-padding) 80px;
+}
+
+.careers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.careers-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.25s;
+}
+
+.careers-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.careers-card-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-secondary);
+    background: rgba(255, 150, 122, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    align-self: flex-start;
+}
+
+.careers-card h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.careers-card-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--color-black);
+    opacity: 0.5;
+}
+
+.careers-card p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--color-black);
+    opacity: 0.6;
+    line-height: 1.6;
+}
+
+.careers-card-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-black);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.careers-card-link:hover {
+    opacity: 0.65;
+}
+
+/* ——— Culture / Perks section ——— */
+.careers-perks {
+    padding: 60px var(--page-padding) 80px;
+    background: var(--color-bg);
+}
+
+.careers-perks h2 {
+    margin: 0 0 32px;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-black);
+    text-align: center;
+}
+
+.perks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.perk-item {
+    text-align: center;
+    padding: 32px 20px;
+}
+
+.perk-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+}
+
+.perk-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.perk-item h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.perk-item p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-black);
+    opacity: 0.55;
+    line-height: 1.6;
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 768px) {
+    .careers-grid {
+        grid-template-columns: 1fr;
+    }
+    .perks-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}

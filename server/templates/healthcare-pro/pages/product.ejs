@@ -1,0 +1,27 @@
+<%- include('../partials/topbar', { settings, navigation }) %>
+
+<section class="product-detail">
+    <div class="product-detail-gallery">
+        <% if (product.imageUrl) { %>
+        <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="product-detail-img">
+        <% } %>
+    </div>
+
+    <div class="product-detail-info">
+        <% if (product.category) { %>
+        <span class="product-detail-category"><%= product.category.name %></span>
+        <% } %>
+        <h1 class="product-detail-title"><%= product.title %></h1>
+        <p class="product-detail-price"><%= product.priceText || '' %></p>
+        <div class="product-detail-desc">
+            <%- product.longDescription || product.description || '' %>
+        </div>
+        <% if (product.ctaUrl || product.slug) { %>
+        <a href="<%= product.ctaUrl || '/pages/forms.html?product=' + product.slug %>" class="btn btn-primary">
+            <%= product.ctaText || 'Get Started' %>
+        </a>
+        <% } %>
+    </div>
+</section>
+
+<%- include('../partials/footer', { settings, navigation, socialLinks }) %>

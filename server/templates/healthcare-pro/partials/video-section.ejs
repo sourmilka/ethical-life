@@ -1,0 +1,30 @@
+<!-- Video Section -->
+<section class="video-section">
+    <div class="video-grid" id="videoGrid">
+        <div class="video-track" id="videoTrack">
+            <% videos.forEach(function(video) { %>
+            <div class="video-box">
+                <div class="video-wrapper">
+                    <video class="short-video" src="<%= video.videoUrl %>" loop playsinline></video>
+                    <button class="mute-btn" aria-label="Mute">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                    </button>
+                    <div class="video-user-info">
+                        <% if (video.thumbnailUrl) { %>
+                        <img src="<%= video.thumbnailUrl %>" alt="<%= video.speakerName || '' %>" class="video-user-avatar">
+                        <% } %>
+                        <div class="video-user-text">
+                            <% if (video.speakerName) { %>
+                            <span class="video-user-name"><%= video.speakerName %></span>
+                            <% } %>
+                            <% if (video.speakerRole) { %>
+                            <span class="video-user-role"><%= video.speakerRole %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+<!-- About — Mission Section -->
+<% if (sections && sections.mission) { %>
+<section class="about-mission">
+    <div class="about-mission-text">
+        <h2><%= sections.mission.content.headline || 'Our Mission' %></h2>
+        <%- sections.mission.content.body || '' %>
+    </div>
+    <% if (sections.mission.content.imageUrl) { %>
+    <div class="about-mission-img">
+        <img src="<%= sections.mission.content.imageUrl %>" alt="<%= sections.mission.content.headline || 'Our mission' %>">
+    </div>
+    <% } %>
+</section>
+<% } %>
+
+<!-- About — Values Section -->
+<% if (sections && sections.values) { %>
+<section class="about-values">
+    <h2><%= sections.values.content.headline || 'What We Stand For' %></h2>
+    <% if (sections.values.content.items && sections.values.content.items.length > 0) { %>
+    <div class="values-grid">
+        <% sections.values.content.items.forEach(function(val) { %>
+        <div class="value-card">
+            <% if (val.icon) { %>
+            <span class="value-icon"><%- val.icon %></span>
+            <% } %>
+            <h3><%= val.title %></h3>
+            <p><%= val.description %></p>
+        </div>
+        <% }); %>
+    </div>
+    <% } %>
+</section>
+<% } %>
+
+<!-- About — Team Section -->
+<% if (teamMembers && teamMembers.length > 0) { %>
+<section class="about-team">
+    <h2>Meet the Team</h2>
+    <p>The people behind <%= (settings && settings.companyName) || 'our company' %> — dedicated to your health and wellbeing.</p>
+    <div class="team-grid">
+        <% teamMembers.forEach(function(member) { %>
+        <div class="team-card">
+            <div class="team-photo">
+                <% if (member.photoUrl) { %>
+                <img src="<%= member.photoUrl %>" alt="<%= member.fullName %>">
+                <% } %>
+            </div>
+            <h3><%= member.fullName %></h3>
+            <p><%= member.role %></p>
+        </div>
+        <% }); %>
+    </div>
+</section>
+<% } %>
+
+<!-- About — Stats -->
+<% if (sections && sections.stats && sections.stats.content.items) { %>
+<section class="about-stats">
+    <% sections.stats.content.items.forEach(function(stat) { %>
+    <div class="stat-item">
+        <span class="stat-number"><%= stat.value %></span>
+        <span class="stat-label"><%= stat.label %></span>
+    </div>
+    <% }); %>
+</section>
+<% } %>

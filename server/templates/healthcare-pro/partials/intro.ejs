@@ -1,0 +1,8 @@
+<!-- Intro Section -->
+<section class="intro-section">
+    <h2 class="section-title"><%- intro.headline || '' %></h2>
+    <p class="section-desc"><%- intro.description || '' %></p>
+    <% if (intro.ctaUrl) { %>
+    <a href="<%= intro.ctaUrl %>" class="form-btn"><%= intro.ctaText || 'Fill our form' %> <img src="/assets/images/arrow.svg" alt="arrow" class="form-arrow"></a>
+    <% } %>
+</section>

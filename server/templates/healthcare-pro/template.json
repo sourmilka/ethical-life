@@ -1,0 +1,24 @@
+{
+  "name": "Healthcare Pro",
+  "slug": "healthcare-pro",
+  "version": "1.0.0",
+  "description": "Professional healthcare and telehealth template with modern design, product catalog, blog, intake forms, and BarterPay payment integration.",
+  "author": "BarterPay",
+  "pages": [
+    "home", "shop", "product", "blog", "blog-post",
+    "about", "contact", "faq", "careers",
+    "terms", "privacy",
+    "forms", "payment", "thank-you", "404"
+  ],
+  "features": [
+    "multi-step-forms",
+    "product-catalog",
+    "blog",
+    "testimonials",
+    "faq",
+    "team",
+    "careers",
+    "video-section",
+    "payment-integration"
+  ]
+}

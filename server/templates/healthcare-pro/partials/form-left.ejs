@@ -1,0 +1,23 @@
+<!-- Form Page — Left Panel -->
+<div class="form-left">
+    <a href="/" class="form-logo">
+        <% if (settings && settings.logoUrl) { %>
+        <img src="<%= settings.logoUrl %>" alt="<%= settings.companyName || '' %>">
+        <% } %>
+    </a>
+
+    <div class="form-left-body">
+        <h1 class="form-left-title"><%= (formDef && formDef.title) || 'Start your consultation' %></h1>
+        <p class="form-left-desc"><%= (formDef && formDef.description) || 'Complete this intake for review by a licensed clinician.' %></p>
+
+        <div class="progress-box">
+            <span class="progress-label">Progress</span>
+            <p class="progress-step" id="progressStep">Step 1</p>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <p class="form-left-footer">Already have an account? <a href="#">Sign In</a></p>
+</div>

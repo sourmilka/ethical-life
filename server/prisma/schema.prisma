@@ -1,0 +1,707 @@
+// BarterPay Multi-Tenant SaaS Platform
+// See docs/DATABASE-SCHEMA.md for full specification
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────────────────
+// 25. Templates — shared across all tenants
+// ─────────────────────────────────────────────────────────
+
+model Template {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(255)
+  slug         String   @unique @db.VarChar(100)
+  description  String?  @db.Text
+  thumbnailUrl String?  @map("thumbnail_url") @db.Text
+  version      String   @default("1.0.0") @db.VarChar(20)
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenants Tenant[]
+
+  @@map("templates")
+}
+
+// ─────────────────────────────────────────────────────────
+// 1. Tenants — the core table
+// ─────────────────────────────────────────────────────────
+
+model Tenant {
+  id                  String    @id @default(uuid()) @db.Uuid
+  name                String    @db.VarChar(255)
+  slug                String    @unique @db.VarChar(100)
+  customDomain        String?   @unique @map("custom_domain") @db.VarChar(255)
+  templateId          String?   @map("template_id") @db.Uuid
+  status              String    @default("active") @db.VarChar(20)
+  plan                String    @default("starter") @db.VarChar(50)
+  barterpayMerchantId String?   @map("barterpay_merchant_id") @db.VarChar(255)
+  barterpayApiKey     String?   @map("barterpay_api_key") @db.Text
+  trialEndsAt         DateTime? @map("trial_ends_at") @db.Timestamptz
+  createdAt           DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt           DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  template Template? @relation(fields: [templateId], references: [id])
+
+  users            User[]
+  siteSettings     SiteSettings?
+  pages            Page[]
+  navigationItems  NavigationItem[]
+  socialLinks      SocialLink[]
+  productCategories ProductCategory[]
+  products         Product[]
+  blogCategories   BlogCategory[]
+  blogPosts        BlogPost[]
+  testimonials     Testimonial[]
+  faqCategories    FaqCategory[]
+  faqItems         FaqItem[]
+  teamMembers      TeamMember[]
+  jobListings      JobListing[]
+  videos           Video[]
+  formDefinitions  FormDefinition[]
+  formSubmissions  FormSubmission[]
+  formFields       FormField[]
+  mediaAssets      MediaAsset[]
+  auditLogs        AuditLog[]
+  pageSections     PageSection[]
+
+  @@index([slug])
+  @@index([customDomain])
+  @@index([status])
+  @@map("tenants")
+}
+
+// ─────────────────────────────────────────────────────────
+// 2. Users — tenant team members
+// ─────────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  tenantId     String    @map("tenant_id") @db.Uuid
+  email        String    @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  fullName     String    @map("full_name") @db.VarChar(255)
+  role         String    @default("admin") @db.VarChar(20)
+  avatarUrl    String?   @map("avatar_url") @db.Text
+  isActive     Boolean   @default(true) @map("is_active")
+  lastLoginAt  DateTime? @map("last_login_at") @db.Timestamptz
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  sessions Session[]
+  auditLogs AuditLog[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([email])
+  @@map("users")
+}
+
+// ─────────────────────────────────────────────────────────
+// 3. Sessions — refresh token storage
+// ─────────────────────────────────────────────────────────
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  refreshToken String   @unique @map("refresh_token") @db.VarChar(512)
+  userAgent    String?  @map("user_agent") @db.Text
+  ipAddress    String?  @map("ip_address") @db.VarChar(45)
+  expiresAt    DateTime @map("expires_at") @db.Timestamptz
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([refreshToken])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+// ─────────────────────────────────────────────────────────
+// 4. Site Settings — branding, colors, contact, meta
+// ─────────────────────────────────────────────────────────
+
+model SiteSettings {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @unique @map("tenant_id") @db.Uuid
+
+  // Branding
+  companyName String  @map("company_name") @db.VarChar(255)
+  logoUrl     String? @map("logo_url") @db.Text
+  faviconUrl  String? @map("favicon_url") @db.Text
+  tagline     String? @db.VarChar(500)
+
+  // Colors
+  colorPrimary     String @default("#0D0D0D") @map("color_primary") @db.VarChar(7)
+  colorAccent      String @default("#FFCD93") @map("color_accent") @db.VarChar(7)
+  colorSecondary   String @default("#FF967A") @map("color_secondary") @db.VarChar(7)
+  colorBackground  String @default("#E6E6E6") @map("color_background") @db.VarChar(7)
+  colorBorder      String @default("#D9D9D9") @map("color_border") @db.VarChar(7)
+  colorBorderLight String @default("#EBEBEB") @map("color_border_light") @db.VarChar(7)
+  colorWhite       String @default("#FFFFFF") @map("color_white") @db.VarChar(7)
+
+  // Contact
+  contactEmail  String? @map("contact_email") @db.VarChar(255)
+  contactPhone  String? @map("contact_phone") @db.VarChar(50)
+  contactAddress String? @map("contact_address") @db.Text
+  businessHours String? @map("business_hours") @db.VarChar(255)
+
+  // SEO / Meta
+  metaTitle         String? @map("meta_title") @db.VarChar(255)
+  metaDescription   String? @map("meta_description") @db.Text
+  ogImageUrl        String? @map("og_image_url") @db.Text
+  googleAnalyticsId String? @map("google_analytics_id") @db.VarChar(50)
+
+  // App store links
+  appStoreUrl  String? @map("app_store_url") @db.Text
+  playStoreUrl String? @map("play_store_url") @db.Text
+
+  // Promo banner
+  promoBannerText   String? @map("promo_banner_text") @db.VarChar(500)
+  promoBannerActive Boolean @default(false) @map("promo_banner_active")
+
+  // Footer
+  footerTagline String? @map("footer_tagline") @db.Text
+
+  // Legal
+  termsContent   String? @map("terms_content") @db.Text
+  privacyContent String? @map("privacy_content") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("site_settings")
+}
+
+// ─────────────────────────────────────────────────────────
+// 5. Pages — per-page editable content
+// ─────────────────────────────────────────────────────────
+
+model Page {
+  id              String  @id @default(uuid()) @db.Uuid
+  tenantId        String  @map("tenant_id") @db.Uuid
+  slug            String  @db.VarChar(100)
+  title           String? @db.VarChar(255)
+  metaDescription String? @map("meta_description") @db.Text
+  isActive        Boolean @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  sections PageSection[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId, slug])
+  @@map("pages")
+}
+
+// ─────────────────────────────────────────────────────────
+// 6. Page Sections — content blocks within pages (JSONB)
+// ─────────────────────────────────────────────────────────
+
+model PageSection {
+  id         String  @id @default(uuid()) @db.Uuid
+  tenantId   String  @map("tenant_id") @db.Uuid
+  pageId     String  @map("page_id") @db.Uuid
+  sectionKey String  @map("section_key") @db.VarChar(100)
+  sortOrder  Int     @default(0) @map("sort_order")
+  isVisible  Boolean @default(true) @map("is_visible")
+  content    Json    @default("{}") @db.JsonB
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page   Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, pageId, sectionKey])
+  @@index([pageId])
+  @@index([tenantId])
+  @@map("page_sections")
+}
+
+// ─────────────────────────────────────────────────────────
+// 7. Navigation Items — navbar, sidebar, footer links
+// ─────────────────────────────────────────────────────────
+
+model NavigationItem {
+  id          String  @id @default(uuid()) @db.Uuid
+  tenantId    String  @map("tenant_id") @db.Uuid
+  location    String  @db.VarChar(20) // navbar | sidebar | footer_col1 | footer_col2
+  label       String  @db.VarChar(100)
+  url         String  @db.VarChar(500)
+  sortOrder   Int     @default(0) @map("sort_order")
+  isVisible   Boolean @default(true) @map("is_visible")
+  openInNewTab Boolean @default(false) @map("open_in_new_tab")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, location])
+  @@map("navigation_items")
+}
+
+// ─────────────────────────────────────────────────────────
+// 8. Social Links
+// ─────────────────────────────────────────────────────────
+
+model SocialLink {
+  id        String  @id @default(uuid()) @db.Uuid
+  tenantId  String  @map("tenant_id") @db.Uuid
+  platform  String  @db.VarChar(50) // instagram | whatsapp | tiktok | facebook | etc.
+  url       String  @db.Text
+  iconUrl   String? @map("icon_url") @db.Text
+  sortOrder Int     @default(0) @map("sort_order")
+  isVisible Boolean @default(true) @map("is_visible")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, platform])
+  @@index([tenantId])
+  @@map("social_links")
+}
+
+// ─────────────────────────────────────────────────────────
+// 9. Product Categories
+// ─────────────────────────────────────────────────────────
+
+model ProductCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @map("tenant_id") @db.Uuid
+  name      String   @db.VarChar(100)
+  slug      String   @db.VarChar(100)
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  products Product[]
+
+  @@unique([tenantId, slug])
+  @@map("product_categories")
+}
+
+// ─────────────────────────────────────────────────────────
+// 10. Products
+// ─────────────────────────────────────────────────────────
+
+model Product {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @map("tenant_id") @db.Uuid
+  categoryId  String?  @map("category_id") @db.Uuid
+  slug        String   @db.VarChar(200)
+  title       String   @db.VarChar(255)
+  tagline     String?  @db.VarChar(500)
+  description String?  @db.Text
+  priceText   String?  @map("price_text") @db.VarChar(100)
+  priceAmount Decimal? @map("price_amount") @db.Decimal(10, 2)
+  currency    String   @default("GBP") @db.VarChar(3)
+  imageUrl    String?  @map("image_url") @db.Text
+  tag         String?  @db.VarChar(50)
+  features    Json     @default("[]") @db.JsonB
+  howItWorks  String?  @map("how_it_works") @db.Text
+  isActive    Boolean  @default(true) @map("is_active")
+  isFeatured  Boolean  @default(false) @map("is_featured")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category ProductCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  formSubmissions FormSubmission[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([categoryId])
+  @@index([tenantId, isActive])
+  @@map("products")
+}
+
+// ─────────────────────────────────────────────────────────
+// 11. Blog Categories
+// ─────────────────────────────────────────────────────────
+
+model BlogCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @map("tenant_id") @db.Uuid
+  name      String   @db.VarChar(100)
+  slug      String   @db.VarChar(100)
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  posts  BlogPost[]
+
+  @@unique([tenantId, slug])
+  @@map("blog_categories")
+}
+
+// ─────────────────────────────────────────────────────────
+// 12. Blog Posts
+// ─────────────────────────────────────────────────────────
+
+model BlogPost {
+  id            String    @id @default(uuid()) @db.Uuid
+  tenantId      String    @map("tenant_id") @db.Uuid
+  categoryId    String?   @map("category_id") @db.Uuid
+  slug          String    @db.VarChar(300)
+  title         String    @db.VarChar(500)
+  excerpt       String?   @db.Text
+  content       String?   @db.Text
+  coverImageUrl String?   @map("cover_image_url") @db.Text
+  authorName    String?   @map("author_name") @db.VarChar(255)
+  authorAvatar  String?   @map("author_avatar") @db.Text
+  readTime      String?   @map("read_time") @db.VarChar(20)
+  status        String    @default("draft") @db.VarChar(20)
+  isFeatured    Boolean   @default(false) @map("is_featured")
+  publishedAt   DateTime? @map("published_at") @db.Timestamptz
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, publishedAt])
+  @@map("blog_posts")
+}
+
+// ─────────────────────────────────────────────────────────
+// 13. Testimonials
+// ─────────────────────────────────────────────────────────
+
+model Testimonial {
+  id           String   @id @default(uuid()) @db.Uuid
+  tenantId     String   @map("tenant_id") @db.Uuid
+  authorName   String   @map("author_name") @db.VarChar(255)
+  authorAvatar String?  @map("author_avatar") @db.Text
+  rating       Int      @default(5) @db.SmallInt
+  reviewText   String   @map("review_text") @db.Text
+  reviewDate   DateTime? @map("review_date") @db.Date
+  source       String?  @db.VarChar(50)
+  isVisible    Boolean  @default(true) @map("is_visible")
+  sortOrder    Int      @default(0) @map("sort_order")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("testimonials")
+}
+
+// ─────────────────────────────────────────────────────────
+// 14. FAQ Categories
+// ─────────────────────────────────────────────────────────
+
+model FaqCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @map("tenant_id") @db.Uuid
+  name      String   @db.VarChar(100)
+  slug      String   @db.VarChar(100)
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items  FaqItem[]
+
+  @@unique([tenantId, slug])
+  @@map("faq_categories")
+}
+
+// ─────────────────────────────────────────────────────────
+// 15. FAQ Items
+// ─────────────────────────────────────────────────────────
+
+model FaqItem {
+  id           String  @id @default(uuid()) @db.Uuid
+  tenantId     String  @map("tenant_id") @db.Uuid
+  categoryId   String? @map("category_id") @db.Uuid
+  question     String  @db.Text
+  answer       String  @db.Text
+  pageLocation String  @default("faq_page") @map("page_location") @db.VarChar(50)
+  sortOrder    Int     @default(0) @map("sort_order")
+  isVisible    Boolean @default(true) @map("is_visible")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant   Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category FaqCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, pageLocation])
+  @@map("faq_items")
+}
+
+// ─────────────────────────────────────────────────────────
+// 16. Team Members
+// ─────────────────────────────────────────────────────────
+
+model TeamMember {
+  id        String  @id @default(uuid()) @db.Uuid
+  tenantId  String  @map("tenant_id") @db.Uuid
+  fullName  String  @map("full_name") @db.VarChar(255)
+  jobTitle  String? @map("job_title") @db.VarChar(255)
+  bio       String? @db.Text
+  photoUrl  String? @map("photo_url") @db.Text
+  sortOrder Int     @default(0) @map("sort_order")
+  isVisible Boolean @default(true) @map("is_visible")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("team_members")
+}
+
+// ─────────────────────────────────────────────────────────
+// 17. Job Listings
+// ─────────────────────────────────────────────────────────
+
+model JobListing {
+  id               String   @id @default(uuid()) @db.Uuid
+  tenantId         String   @map("tenant_id") @db.Uuid
+  title            String   @db.VarChar(255)
+  department       String?  @db.VarChar(100)
+  location         String?  @db.VarChar(255)
+  type             String?  @db.VarChar(50) // Full-Time | Part-Time | Contract
+  description      String?  @db.Text
+  responsibilities Json     @default("[]") @db.JsonB
+  requirements     Json     @default("[]") @db.JsonB
+  salaryRange      String?  @map("salary_range") @db.VarChar(100)
+  applyUrl         String?  @map("apply_url") @db.Text
+  status           String   @default("active") @db.VarChar(20)
+  postedAt         DateTime @default(now()) @map("posted_at") @db.Timestamptz
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@map("job_listings")
+}
+
+// ─────────────────────────────────────────────────────────
+// 18. Videos
+// ─────────────────────────────────────────────────────────
+
+model Video {
+  id            String  @id @default(uuid()) @db.Uuid
+  tenantId      String  @map("tenant_id") @db.Uuid
+  title         String? @db.VarChar(255)
+  speakerName   String? @map("speaker_name") @db.VarChar(255)
+  speakerRole   String? @map("speaker_role") @db.VarChar(255)
+  speakerAvatar String? @map("speaker_avatar") @db.Text
+  videoUrl      String  @map("video_url") @db.Text
+  thumbnailUrl  String? @map("thumbnail_url") @db.Text
+  sortOrder     Int     @default(0) @map("sort_order")
+  isVisible     Boolean @default(true) @map("is_visible")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("videos")
+}
+
+// ─────────────────────────────────────────────────────────
+// 19. Form Definitions
+// ─────────────────────────────────────────────────────────
+
+model FormDefinition {
+  id                 String   @id @default(uuid()) @db.Uuid
+  tenantId           String   @map("tenant_id") @db.Uuid
+  name               String   @db.VarChar(255)
+  slug               String   @db.VarChar(200)
+  description        String?  @db.Text
+  type               String   @default("intake") @db.VarChar(50)
+  isMultiStep        Boolean  @default(true) @map("is_multi_step")
+  submitButtonText   String   @default("Submit") @map("submit_button_text") @db.VarChar(100)
+  successMessage     String   @default("Thank you for your submission.") @map("success_message") @db.Text
+  redirectUrl        String?  @map("redirect_url") @db.Text
+  requiresPayment    Boolean  @default(false) @map("requires_payment")
+  paymentAmount      Decimal? @map("payment_amount") @db.Decimal(10, 2)
+  notificationEmails String[] @map("notification_emails")
+  status             String   @default("active") @db.VarChar(20)
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant      Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  fields      FormField[]
+  submissions FormSubmission[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@map("form_definitions")
+}
+
+// ─────────────────────────────────────────────────────────
+// 20. Form Fields
+// ─────────────────────────────────────────────────────────
+
+model FormField {
+  id               String  @id @default(uuid()) @db.Uuid
+  formDefinitionId String  @map("form_definition_id") @db.Uuid
+  tenantId         String  @map("tenant_id") @db.Uuid
+  fieldKey         String  @map("field_key") @db.VarChar(100)
+  fieldType        String  @map("field_type") @db.VarChar(50)
+  label            String  @db.VarChar(255)
+  placeholder      String? @db.VarChar(255)
+  helpText         String? @map("help_text") @db.Text
+  stepNumber       Int     @default(0) @map("step_number")
+  stepTitle        String? @map("step_title") @db.VarChar(255)
+  sortOrder        Int     @default(0) @map("sort_order")
+  isRequired       Boolean @default(false) @map("is_required")
+  validationRules  Json    @default("{}") @map("validation_rules") @db.JsonB
+  options          Json    @default("[]") @db.JsonB
+  conditionalOn    Json?   @map("conditional_on") @db.JsonB
+  defaultValue     String? @map("default_value") @db.Text
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  formDefinition FormDefinition @relation(fields: [formDefinitionId], references: [id], onDelete: Cascade)
+  tenant         Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([formDefinitionId])
+  @@index([formDefinitionId, stepNumber])
+  @@map("form_fields")
+}
+
+// ─────────────────────────────────────────────────────────
+// 21. Form Submissions
+// ─────────────────────────────────────────────────────────
+
+model FormSubmission {
+  id               String    @id @default(uuid()) @db.Uuid
+  tenantId         String    @map("tenant_id") @db.Uuid
+  formDefinitionId String    @map("form_definition_id") @db.Uuid
+  productId        String?   @map("product_id") @db.Uuid
+  source           String?   @db.VarChar(255)
+  status           String    @default("new") @db.VarChar(30)
+  paymentStatus    String?   @map("payment_status") @db.VarChar(30)
+  paymentAmount    Decimal?  @map("payment_amount") @db.Decimal(10, 2)
+  paidAt           DateTime? @map("paid_at") @db.Timestamptz
+  notes            String?   @db.Text
+  ipAddress        String?   @map("ip_address") @db.VarChar(45)
+  userAgent        String?   @map("user_agent") @db.Text
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant         Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  formDefinition FormDefinition   @relation(fields: [formDefinitionId], references: [id], onDelete: Cascade)
+  product        Product?         @relation(fields: [productId], references: [id], onDelete: SetNull)
+  data           FormSubmissionData[]
+
+  @@index([tenantId])
+  @@index([formDefinitionId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+  @@map("form_submissions")
+}
+
+// ─────────────────────────────────────────────────────────
+// 22. Form Submission Data — individual field values
+// ─────────────────────────────────────────────────────────
+
+model FormSubmissionData {
+  id           String   @id @default(uuid()) @db.Uuid
+  submissionId String   @map("submission_id") @db.Uuid
+  fieldKey     String   @map("field_key") @db.VarChar(100)
+  fieldLabel   String?  @map("field_label") @db.VarChar(255)
+  value        String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  submission FormSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId])
+  @@map("form_submission_data")
+}
+
+// ─────────────────────────────────────────────────────────
+// 23. Media Assets
+// ─────────────────────────────────────────────────────────
+
+model MediaAsset {
+  id           String   @id @default(uuid()) @db.Uuid
+  tenantId     String   @map("tenant_id") @db.Uuid
+  filename     String   @db.VarChar(500)
+  originalName String   @map("original_name") @db.VarChar(500)
+  mimeType     String   @map("mime_type") @db.VarChar(100)
+  fileSize     BigInt   @map("file_size")
+  url          String   @db.Text
+  altText      String?  @map("alt_text") @db.VarChar(500)
+  width        Int?
+  height       Int?
+  folder       String   @default("general") @db.VarChar(255)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, folder])
+  @@map("media_assets")
+}
+
+// ─────────────────────────────────────────────────────────
+// 24. Audit Logs
+// ─────────────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @map("tenant_id") @db.Uuid
+  userId     String?  @map("user_id") @db.Uuid
+  action     String   @db.VarChar(100)
+  entityType String?  @map("entity_type") @db.VarChar(100)
+  entityId   String?  @map("entity_id") @db.Uuid
+  changes    Json?    @db.JsonB
+  ipAddress  String?  @map("ip_address") @db.VarChar(45)
+  userAgent  String?  @map("user_agent") @db.Text
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([entityType, entityId])
+  @@index([tenantId, createdAt])
+  @@map("audit_logs")
+}
+
+// ─────────────────────────────────────────────────────────
+// 26. Super Admins — platform-level (not tenant-scoped)
+// ─────────────────────────────────────────────────────────
+
+model SuperAdmin {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  fullName     String    @map("full_name") @db.VarChar(255)
+  role         String    @default("admin") @db.VarChar(20)
+  isActive     Boolean   @default(true) @map("is_active")
+  lastLoginAt  DateTime? @map("last_login_at") @db.Timestamptz
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("super_admins")
+}

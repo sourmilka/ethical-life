@@ -1,0 +1,38 @@
+<!-- Shop - Product Grid Section -->
+<section class="shop-section">
+    <div class="shop-intro">
+        <h2>Our Products</h2>
+        <p><%= (settings && settings.tagline) || 'Browse our product catalog.' %></p>
+        <div class="shop-filters">
+            <button class="shop-filter-btn active" data-filter="all">All</button>
+            <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(function(cat) { %>
+            <button class="shop-filter-btn" data-filter="<%= cat.slug %>"><%= cat.name %></button>
+            <% }); %>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <% products.forEach(function(product) { %>
+        <div class="product-card" data-category="<%= product.category ? product.category.slug : '' %>">
+            <div class="product-img">
+                <% if (product.imageUrl) { %>
+                <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
+                <% } %>
+                <% if (product.tag) { %>
+                <span class="product-tag"><%= product.tag %></span>
+                <% } %>
+            </div>
+            <div class="product-body">
+                <h3 class="product-title"><%= product.title %></h3>
+                <p class="product-desc"><%= product.description %></p>
+                <div class="product-footer">
+                    <span class="product-price"><%= product.priceText || '' %></span>
+                    <a href="/pages/product.html?product=<%= product.slug %>" class="product-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</section>

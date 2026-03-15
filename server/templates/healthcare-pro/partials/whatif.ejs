@@ -1,0 +1,21 @@
+<!-- What If Section -->
+<section class="whatif-section">
+    <h2 class="whatif-title"><%- whatif.headline || 'What If Health Was...' %></h2>
+    <div class="whatif-arch-wrapper">
+        <div class="whatif-arch-clip">
+            <div class="whatif-wheel" id="whatifWheel">
+                <% if (whatif.items && whatif.items.length > 0) { %>
+                <% whatif.items.forEach(function(item, index) { %>
+                <div class="whatif-dot" data-index="<%= index %>"><span><%= index + 1 %></span><div class="whatif-stick"></div></div>
+                <% }); %>
+                <% } %>
+            </div>
+        </div>
+        <div class="whatif-center-content">
+            <div class="whatif-inner-text">
+                <p class="whatif-inner-title" id="whatifInnerTitle"><%= (whatif.items && whatif.items[0]) ? whatif.items[0].title : '' %></p>
+                <p class="whatif-inner-sub" id="whatifInnerSub"><%- (whatif.items && whatif.items[0]) ? whatif.items[0].description : '' %></p>
+            </div>
+        </div>
+    </div>
+</section>

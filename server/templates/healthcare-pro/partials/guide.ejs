@@ -1,0 +1,28 @@
+<!-- Guide Section -->
+<section class="guide-section">
+    <div class="guide-left">
+        <% if (guide.bgImage) { %>
+        <img src="<%= guide.bgImage %>" alt="Guide Background" class="guide-bg-img">
+        <% } %>
+        <div class="guide-overlay">
+            <h2 class="guide-heading"><%- guide.headline || '' %></h2>
+            <p class="guide-subtext"><%= guide.subtext || '' %></p>
+            <form class="guide-form" action="<%= guide.formAction || '/pages/forms.html' %>" method="get">
+                <input type="email" class="guide-email" placeholder="Enter your email" required>
+                <button type="submit" class="guide-btn"><%= guide.ctaText || 'Get the guide' %></button>
+            </form>
+        </div>
+    </div>
+    <div class="guide-right">
+        <% if (guide.boxes && guide.boxes.length > 0) { %>
+        <% guide.boxes.forEach(function(box) { %>
+        <div class="guide-box">
+            <div class="guide-box-content">
+                <p class="guide-box-title"><%= box.title %></p>
+                <p class="guide-box-sub"><%= box.description %></p>
+            </div>
+        </div>
+        <% }); %>
+        <% } %>
+    </div>
+</section>

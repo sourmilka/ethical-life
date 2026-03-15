@@ -1,0 +1,56 @@
+<!-- Careers — Content Section -->
+<section class="careers-section">
+    <div class="careers-intro">
+        <h2>Join Our Team</h2>
+        <p>We're always looking for passionate people who want to make a difference in healthcare.</p>
+    </div>
+
+    <% if (careers && careers.length > 0) { %>
+    <div class="careers-grid">
+        <% careers.forEach(function(job) { %>
+        <div class="career-card">
+            <div class="career-card-header">
+                <h3><%= job.title %></h3>
+                <div class="career-tags">
+                    <% if (job.location) { %>
+                    <span class="career-tag"><%= job.location %></span>
+                    <% } %>
+                    <% if (job.type) { %>
+                    <span class="career-tag"><%= job.type %></span>
+                    <% } %>
+                    <% if (job.department) { %>
+                    <span class="career-tag"><%= job.department %></span>
+                    <% } %>
+                </div>
+            </div>
+            <p class="career-desc"><%= job.description %></p>
+            <% if (job.applyUrl) { %>
+            <a href="<%= job.applyUrl %>" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Apply Now</a>
+            <% } %>
+        </div>
+        <% }); %>
+    </div>
+    <% } else { %>
+    <div class="careers-empty">
+        <p>No open positions right now. Check back soon!</p>
+    </div>
+    <% } %>
+
+    <!-- Perks -->
+    <% if (sections && sections.perks && sections.perks.content.items) { %>
+    <div class="careers-perks">
+        <h2><%= sections.perks.content.headline || 'Why Work With Us' %></h2>
+        <div class="perks-grid">
+            <% sections.perks.content.items.forEach(function(perk) { %>
+            <div class="perk-card">
+                <% if (perk.icon) { %>
+                <span class="perk-icon"><%- perk.icon %></span>
+                <% } %>
+                <h4><%= perk.title %></h4>
+                <p><%= perk.description %></p>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+    <% } %>
+</section>

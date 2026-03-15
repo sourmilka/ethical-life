@@ -1,0 +1,31 @@
+<!-- Payment Page — Right Panel (BarterPay Card) -->
+<div class="form-right">
+    <div class="pay-card">
+        <div class="pay-header">
+            <h2 class="pay-title">Complete payment</h2>
+            <p class="pay-sub">Secure checkout powered by BarterPay.</p>
+        </div>
+
+        <div class="pay-iframe-wrap" id="payIframeWrap"
+             data-submission-id="<%= locals.submissionId || '' %>"
+             data-create-url="/api/public/barterpay/transaction"
+             data-status-url="/api/public/barterpay/status">
+            <!-- Loading state -->
+            <div class="pay-iframe-loading" id="payLoading">
+                <div class="loader-ring"></div>
+                <p>Preparing secure checkout…</p>
+            </div>
+
+            <!-- Error state (hidden) -->
+            <div class="pay-error" id="payError" style="display:none;">
+                <p>Unable to initialize payment. Please try again.</p>
+                <button type="button" id="payRetryBtn">Retry</button>
+            </div>
+
+            <!-- BarterPay iframe (src set by JS) -->
+            <iframe id="payIframe" style="display:none;" title="BarterPay Checkout" allow="payment"></iframe>
+        </div>
+
+        <p class="pay-secure">Secured by BarterPay — encrypted end-to-end</p>
+    </div>
+</div>

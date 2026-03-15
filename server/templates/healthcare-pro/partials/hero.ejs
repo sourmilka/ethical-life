@@ -1,0 +1,25 @@
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-left">
+            <h1 class="hero-title"><%- hero.headline || 'Your Health, Reimagined' %></h1>
+            <p class="hero-subtitle"><%- hero.tagline || '' %></p>
+            <a href="<%= hero.ctaUrl || '/pages/forms.html' %>" class="hero-btn"><%= hero.ctaText || 'Get Started' %> <img src="/assets/images/arrow.svg" alt="arrow" class="hero-arrow"></a>
+        </div>
+        <div class="hero-right">
+            <% if (hero.stats && hero.stats.length > 0) { %>
+            <div class="hero-stats">
+                <% hero.stats.forEach(function(stat) { %>
+                <div class="hero-stat">
+                    <p class="hero-label"><%= stat.label %></p>
+                    <span class="hero-stat-number"><%= stat.value %></span>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+            <% if (hero.quote) { %>
+            <p class="hero-quote"><%- hero.quote %></p>
+            <% } %>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,43 @@
+<%- include('../partials/topbar', { settings, navigation }) %>
+
+<% if (sections && sections.hero) { %>
+<%- include('../partials/hero', { hero: sections.hero.content, settings }) %>
+<% } %>
+
+<% if (sections && sections.intro && sections.intro.isVisible) { %>
+<%- include('../partials/intro', { intro: sections.intro.content }) %>
+<% } %>
+
+<% if (featuredProducts && featuredProducts.length > 0) { %>
+<%- include('../partials/carousel', { products: featuredProducts }) %>
+<% } %>
+
+<% if (sections && sections.expert && sections.expert.isVisible) { %>
+<%- include('../partials/expert', { expert: sections.expert.content }) %>
+<% } %>
+
+<% if (videos && videos.length > 0) { %>
+<%- include('../partials/video-section', { videos }) %>
+<% } %>
+
+<% if (sections && sections.markers && sections.markers.isVisible) { %>
+<%- include('../partials/markers', { markers: sections.markers.content }) %>
+<% } %>
+
+<% if (sections && sections.whatif && sections.whatif.isVisible) { %>
+<%- include('../partials/whatif', { whatif: sections.whatif.content }) %>
+<% } %>
+
+<% if (homeFaqs && homeFaqs.length > 0) { %>
+<%- include('../partials/faq-accordion', { faqs: homeFaqs }) %>
+<% } %>
+
+<% if (testimonials && testimonials.length > 0) { %>
+<%- include('../partials/stories', { testimonials }) %>
+<% } %>
+
+<% if (sections && sections.guide && sections.guide.isVisible) { %>
+<%- include('../partials/guide', { guide: sections.guide.content }) %>
+<% } %>
+
+<%- include('../partials/footer', { settings, navigation, socialLinks }) %>

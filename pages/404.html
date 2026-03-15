@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ethical Life — Page not found.">
+    <link rel="icon" href="/src/assets/images/logo.svg" type="image/svg+xml">
+    <title>Page Not Found — Ethical Life</title>
+</head>
+
+<body>
+    @@include('src/html/partials/topbar.html')
+
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <h1>Page Not Found</h1>
+            <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
+        </div>
+    </section>
+
+    <section class="not-found-section">
+        <a href="/" class="not-found-btn">Back to Home</a>
+        <a href="/pages/shop.html" class="not-found-link">Browse Products</a>
+        <a href="/pages/contact.html" class="not-found-link">Contact Us</a>
+    </section>
+
+    @@include('src/html/partials/footer.html')
+
+    <script type="module" src="/src/js/pages/404.js"></script>
+</body>
+
+</html>

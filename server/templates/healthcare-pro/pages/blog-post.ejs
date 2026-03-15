@@ -1,0 +1,31 @@
+<%- include('../partials/topbar', { settings, navigation }) %>
+
+<article class="blog-post-detail">
+    <% if (blogPost.featuredImageUrl) { %>
+    <div class="blog-post-hero" style="background-image: url('<%= blogPost.featuredImageUrl %>')"></div>
+    <% } %>
+
+    <div class="blog-post-header">
+        <% if (blogPost.category) { %>
+        <span class="blog-tag"><%= blogPost.category.name %></span>
+        <% } %>
+        <h1><%= blogPost.title %></h1>
+        <div class="blog-meta">
+            <% if (blogPost.authorName) { %>
+            <span><%= blogPost.authorName %></span>
+            <% } %>
+            <% if (blogPost.publishedAt) { %>
+            <span><%= new Date(blogPost.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+            <% } %>
+            <% if (blogPost.readTimeMinutes) { %>
+            <span><%= blogPost.readTimeMinutes %> min read</span>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="blog-post-body">
+        <%- blogPost.content %>
+    </div>
+</article>
+
+<%- include('../partials/footer', { settings, navigation, socialLinks }) %>

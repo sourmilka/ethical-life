@@ -1,0 +1,27 @@
+<!-- FAQ Accordion Section -->
+<section class="faq-section">
+    <div class="faq-left">
+        <% if (locals.faqHeadline) { %>
+        <h2 class="faq-title"><%- faqHeadline %></h2>
+        <% } %>
+        <% if (locals.faqDescription) { %>
+        <p class="faq-desc"><%- faqDescription %></p>
+        <% } %>
+
+        <div class="faq-list" role="list">
+            <% faqs.forEach(function(faq) { %>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span><%= faq.question %></span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p><%- faq.answer %></p>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+
+        <p class="faq-disclaimer">*Disclaimer: This information is for educational and informational purposes only. It is not intended to be a substitute for professional medical advice.</p>
+    </div>
+</section>

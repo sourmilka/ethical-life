@@ -1,0 +1,38 @@
+/* ===== CSS Custom Properties (Design Tokens) ===== */
+:root {
+    /* Layout — horizontal page padding */
+    --page-padding: 170px;
+
+    /* Border Radius */
+    --radius-sm: 10px;
+    --radius-md: 16px;
+
+    /* Component Sizing */
+    --btn-width: 380px;
+    --card-width: 380px;
+
+    /* Track / Grid Gap */
+    --track-gap: 20px;
+
+    /* Colors */
+    --color-black: #0D0D0D;
+    --color-white: #fff;
+    --color-accent: #FFCD93;
+    --color-secondary: #FF967A;
+    --color-bg: #E6E6E6;
+    --color-border: #D9D9D9;
+    --color-border-light: #EBEBEB;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --page-padding: 40px;
+        --card-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --page-padding: 16px;
+    }
+}

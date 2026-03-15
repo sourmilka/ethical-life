@@ -1,0 +1,4 @@
+<%- include('../partials/topbar', { settings, navigation }) %>
+<%- include('../partials/page-hero', { page, pageHeroTitle: 'Frequently Asked Questions', pageHeroDesc: 'Find answers to the most common questions.' }) %>
+<%- include('../partials/faq-page-content', { faqGroups: locals.faqGroups || {}, faqs: locals.faqs || [] }) %>
+<%- include('../partials/footer', { settings, navigation, socialLinks }) %>

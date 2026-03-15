@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ethical Life — Complete your patient intake form for a licensed clinical review.">
+    <link rel="icon" href="/src/assets/images/logo.svg" type="image/svg+xml">
+    <title>Intake Form — Ethical Life</title>
+</head>
+
+<body>
+    <div class="form-page">
+        @@include('src/html/partials/form-left.html')
+
+        <!-- Right Panel -->
+        <div class="form-right">
+            <div class="form-card">
+                <form id="intakeForm" novalidate>
+                    @@include('src/html/partials/form-steps/step-0-patient.html')
+                    @@include('src/html/partials/form-steps/step-1-goals.html')
+                    @@include('src/html/partials/form-steps/step-2-medical.html')
+                    @@include('src/html/partials/form-steps/step-3-surgeries.html')
+                    @@include('src/html/partials/form-steps/step-4-medications.html')
+                    @@include('src/html/partials/form-steps/step-5-safety.html')
+                    @@include('src/html/partials/form-steps/step-6-notes.html')
+                    @@include('src/html/partials/form-nav.html')
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/pages/forms.js"></script>
+</body>
+
+</html>

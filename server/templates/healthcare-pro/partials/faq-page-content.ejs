@@ -1,0 +1,39 @@
+<!-- FAQ Page — Full Content Section -->
+<section class="faq-page-section">
+    <% if (faqGroups && Object.keys(faqGroups).length > 0) { %>
+        <% Object.keys(faqGroups).forEach(function(category) { %>
+        <div class="faq-category">
+            <h2 class="faq-category-title"><%= category %></h2>
+            <div class="faq-list">
+                <% faqGroups[category].forEach(function(item) { %>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span><%= item.question %></span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><%- item.answer %></p>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+        <% }); %>
+    <% } else if (faqs && faqs.length > 0) { %>
+        <div class="faq-list">
+            <% faqs.forEach(function(item) { %>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span><%= item.question %></span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p><%- item.answer %></p>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No FAQs available at this time.</p>
+    <% } %>
+</section>

@@ -1,0 +1,16 @@
+<!-- Markers Section -->
+<section class="markers-section">
+    <h2 class="markers-title"><%- markers.headline || '' %></h2>
+    <div class="markers-grid">
+        <% if (markers.items && markers.items.length > 0) { %>
+        <% markers.items.forEach(function(item) { %>
+        <div class="markers-box">
+            <div class="markers-box-text">
+                <p class="markers-box-title"><%= item.title %></p>
+                <p class="markers-box-sub"><%= item.description %></p>
+            </div>
+        </div>
+        <% }); %>
+        <% } %>
+    </div>
+</section>

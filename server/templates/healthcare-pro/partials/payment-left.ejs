@@ -1,0 +1,15 @@
+<!-- Payment Page — Left Panel -->
+<div class="form-left">
+    <a href="/" class="form-logo">
+        <% if (settings && settings.logoUrl) { %>
+        <img src="<%= settings.logoUrl %>" alt="<%= settings.companyName || '' %>">
+        <% } %>
+    </a>
+
+    <div class="form-left-body">
+        <h1 class="form-left-title">Complete<br>your payment</h1>
+        <p class="form-left-desc">Your intake has been submitted. Complete payment to begin your clinical review. A licensed provider will evaluate your information within 24–48 hours.</p>
+    </div>
+
+    <p class="form-left-footer">Need help? <a href="mailto:<%= (settings && settings.contactEmail) || 'support@example.com' %>">Contact support</a></p>
+</div>

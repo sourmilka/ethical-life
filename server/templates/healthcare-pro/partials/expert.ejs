@@ -1,0 +1,15 @@
+<!-- Expert Section -->
+<section class="expert-section">
+    <div class="expert-left">
+        <h2 class="expert-title"><%- expert.headline || '' %></h2>
+    </div>
+    <div class="expert-right">
+        <% if (expert.ctaUrl) { %>
+        <a href="<%= expert.ctaUrl %>" class="form-btn"><%= expert.ctaText || 'Fill our form' %> <img src="/assets/images/arrow.svg" alt="arrow" class="form-arrow"></a>
+        <% } %>
+        <div class="video-arrows">
+            <button class="video-arrow video-arrow-left" id="videoArrowLeft">&lt;</button>
+            <button class="video-arrow video-arrow-right" id="videoArrowRight">&gt;</button>
+        </div>
+    </div>
+</section>

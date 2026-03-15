@@ -1,0 +1,59 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-left">
+            <img src="<%= (settings && settings.logoUrl) || '/assets/images/logo.svg' %>" alt="<%= (settings && settings.companyName) || 'Logo' %>" class="footer-logo">
+            <div class="footer-columns">
+                <div class="footer-col footer-col-social">
+                    <div class="footer-socials">
+                        <% if (socialLinks && socialLinks.length > 0) { %>
+                        <% socialLinks.forEach(function(link) { %>
+                        <a href="<%= link.url %>" target="_blank" rel="noopener noreferrer">
+                            <% if (link.iconUrl) { %>
+                            <img src="<%= link.iconUrl %>" alt="<%= link.platform %>" class="footer-social-icon">
+                            <% } else { %>
+                            <img src="/assets/images/social/<%= link.platform.toLowerCase() %>.svg" alt="<%= link.platform %>" class="footer-social-icon">
+                            <% } %>
+                        </a>
+                        <% }); %>
+                        <% } %>
+                    </div>
+                    <% if (settings && settings.footerTagline) { %>
+                    <p class="footer-social-text"><%= settings.footerTagline %></p>
+                    <% } %>
+                </div>
+
+                <% ['footer_col1', 'footer_col2'].forEach(function(col) { %>
+                <% var colLinks = (navigation && navigation[col]) || []; %>
+                <% if (colLinks.length > 0) { %>
+                <div class="footer-col">
+                    <% if (colLinks[0].groupTitle) { %>
+                    <h4 class="footer-col-title"><%= colLinks[0].groupTitle %></h4>
+                    <% } %>
+                    <% colLinks.forEach(function(link) { %>
+                    <a href="<%= link.url %>" class="footer-link"
+                       <% if (link.openInNewTab) { %>target="_blank" rel="noopener noreferrer"<% } %>><%= link.label %></a>
+                    <% }); %>
+                </div>
+                <% } %>
+                <% }); %>
+            </div>
+        </div>
+        <div class="footer-right">
+            <img src="/assets/images/phone.png" alt="Mobile App" class="footer-phone">
+            <p class="footer-app-text">Find us on the App Store and Google Play Store</p>
+            <div class="footer-store-btns">
+                <% if (settings && settings.appStoreUrl) { %>
+                <a href="<%= settings.appStoreUrl %>" class="footer-store-link">
+                    <img src="/assets/images/apple.png" alt="App Store" class="footer-store-img">
+                </a>
+                <% } %>
+                <% if (settings && settings.playStoreUrl) { %>
+                <a href="<%= settings.playStoreUrl %>" class="footer-store-link">
+                    <img src="/assets/images/gplay.png" alt="Google Play" class="footer-store-img">
+                </a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</footer>

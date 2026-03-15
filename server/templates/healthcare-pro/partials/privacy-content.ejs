@@ -1,0 +1,10 @@
+<!-- Privacy Policy — Content -->
+<section class="legal-section">
+    <div class="legal-content">
+        <% if (settings && settings.privacyContent) { %>
+        <%- settings.privacyContent %>
+        <% } else { %>
+        <p>Privacy policy content has not been configured yet.</p>
+        <% } %>
+    </div>
+</section>

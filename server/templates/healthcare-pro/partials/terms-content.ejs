@@ -1,0 +1,10 @@
+<!-- Terms of Service — Content -->
+<section class="legal-section">
+    <div class="legal-content">
+        <% if (settings && settings.termsContent) { %>
+        <%- settings.termsContent %>
+        <% } else { %>
+        <p>Terms of service content has not been configured yet.</p>
+        <% } %>
+    </div>
+</section>

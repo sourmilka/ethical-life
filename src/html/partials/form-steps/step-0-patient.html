@@ -1,0 +1,76 @@
+<!-- Step 0: Patient Details & Consent -->
+<div class="form-step active" data-step="0">
+    <h2 class="step-title">Patient details &amp; consent</h2>
+    <p class="step-sub">This information is collected for asynchronous review by a licensed clinician.</p>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="fullName" class="sr-only">Full name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Full name *" required>
+        </div>
+        <div class="form-group">
+            <label for="dob" class="sr-only">Date of birth</label>
+            <input type="date" id="dob" name="dob" placeholder="Date of birth *" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email *" required>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="sr-only">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone *" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="state" class="sr-only">Home state</label>
+            <input type="text" id="state" name="state" placeholder="Home state *" maxlength="2" required>
+        </div>
+        <div class="form-group">
+            <label for="locationCity" class="sr-only">Current city</label>
+            <input type="text" id="locationCity" name="locationDuringVisitCity" placeholder="Current city *" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="locationState" class="sr-only">Where are you located right now (state)</label>
+        <input type="text" id="locationState" name="locationDuringVisitState" placeholder="Where are you located right now (state) *" maxlength="2" required>
+    </div>
+
+    <div class="form-checks">
+        <label class="form-check">
+            <input type="checkbox" name="hasGovtId" required>
+            <span class="check-box"></span>
+            <span>I can provide a government-issued ID if requested *</span>
+        </label>
+        <label class="form-check">
+            <input type="checkbox" name="consentTelehealth" required>
+            <span class="check-box"></span>
+            <span>I consent to telehealth evaluation by a licensed clinician.</span>
+        </label>
+        <label class="form-check">
+            <input type="checkbox" name="agreeAsyncCare" required>
+            <span class="check-box"></span>
+            <span>I understand care may be delivered asynchronously (no live visit).</span>
+        </label>
+        <label class="form-check">
+            <input type="checkbox" name="agreeNoEmergency" required>
+            <span class="check-box"></span>
+            <span>I understand this is not an emergency service and I will call 911 for emergencies.</span>
+        </label>
+        <label class="form-check">
+            <input type="checkbox" name="consentPrivacy" required>
+            <span class="check-box"></span>
+            <span>I agree to the Privacy Policy and Notice of Privacy Practices.</span>
+        </label>
+        <label class="form-check">
+            <input type="checkbox" name="consentPharmacy" required>
+            <span class="check-box"></span>
+            <span>If prescribed, I authorize fulfillment through a licensed pharmacy partner.</span>
+        </label>
+    </div>
+</div>
